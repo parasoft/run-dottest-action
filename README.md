@@ -2,6 +2,7 @@
 
 ![Build](https://github.com/parasoft/run-dottest-analyzer/workflows/Build/badge.svg)
 ![Unit Tests](https://github.com/parasoft/run-dottest-analyzer/workflows/Unit%20Tests/badge.svg)
+![CodeQL](https://github.com/parasoft/run-dottest-analyzer/workflows/CodeQL/badge.svg)
 
 This action enables you to run code analysis with Parasoft dotTEST and review analysis results directly on GitHub.
 

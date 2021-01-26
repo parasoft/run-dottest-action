@@ -1,0 +1,92 @@
+name: 'Run dotTEST Analyzer'
+description: 'A GitHub Action for running Parasoft dotTEST analysis.'
+author: 'Parasoft'
+branding:
+  icon: 'aperture'
+  color: 'blue'
+inputs:
+  workingDir:
+    description: 'Path to working directory.'
+    required: false
+    default: ${{ github.workspace }}
+  installDir:
+    description: 'Path to folder containing dottestcli.exe. Will be looked up on PATH when not specified.'
+    required: false
+  solution:
+    description: 'Path to solution(s) to be analyzed. Specify multiple times to analyze many solutions. Supports ANT-style wildcards.'
+    required: false
+    default: '.\*.sln'
+  project:
+    description: 'Path to project(s) to be analyzed when solution is not provided. Specify multiple times to analyze many projects. Supports ANT-style wildcards.'
+    required: false
+  website:
+    description: 'Full path to web site directory to be analyzed when solution is not provided.'
+    required: false
+  config:
+    description: 'An URL of test configuration to be used for analysis'
+    required: false
+    default: 'builtin://Recommended .NET Core Rules'
+  resource:
+    description: 'Solution path of a resource(s)'
+    required: false
+  include:
+    description: 'File-system paths of files to include in the analysis. Supports ANT-style wildcards. If not specified, all files are analyzed.'
+    required: false
+  exclude:
+    description: 'File-system paths of files to exclude from the analysis. Supports ANT-style wildcards.'
+    required: false
+  reference:
+    description: 'Path to reference of analyzed assemblies. Specify multiple times to provide many references. Supports ANT-style wildcards.'
+    required: false
+  report:
+    description: 'Path to report directory or main report file.'
+    required: false
+    default: '${{ github.workspace }}/.dottest/report/${{ github.run_number }}'
+  publish:
+    description: 'Publishes report to DTP server.'
+    required: false
+  settings:
+    description: 'Path to settings file.'
+    required: false
+  property:
+    description: 'Single configuration setting in format "key=value".'
+    required: false
+  nobuild:
+    description: 'Disables build of the tested solutions or projects.'
+    required: false
+  testTagFilter:
+    description: 'Run tests that are tagged with specific issue tracking types/IDs.'
+    required: false
+  solutionConfig:
+    description: 'Solution configuration, e.g. "Debug".'
+    required: false
+  projectConfig:
+    description: 'Project configuration, e.g. "Debug".'
+    required: false
+  targetPlatform:
+    description: 'Solution configuration target platform, e.g. "Any CPU", or project configuration target platform, e.g. "AnyCPU".'
+    required: false
+  out:
+    description: 'Path where console output is saved.'
+    required: false
+  fail:
+    description: 'Fails the command with exit code 2 or 4 if any findings are reported. It is recommended to use it with continue-on-error: true'
+    required: false
+  showsettings:
+    description: 'List all settings used.'
+    required: false
+  sarifMode:
+    description: |-
+      'Specify mode for GitHub report (sarif) generation. You can use:
+          # - "legacy" - for dotTEST 2020.2 or older (default)
+          # - "builtin" - for dotTEST 2021.1 or newer'
+    required: false
+    default: 'legacy'
+outputs:
+  report:
+    description: 'The path to report.sarif file (or null if it does not exist)'
+  reportDir: 
+    description: 'The path to directory containing generated report'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

@@ -1,0 +1,91 @@
+﻿import * as core from "@actions/core";
+import * as fs from "fs";
+import * as path from "path";
+
+import { RunOptions } from "./RunOptions";
+import * as runner from "./AnalysisRunner";
+import { SarifMode } from "./SarifMode";
+
+export async function run() {
+  try {
+
+    // #1 Fill options object
+
+    const options: RunOptions = {
+      config: core.getInput("config", { required: false }),
+      exclude: core.getInput("exclude", { required: false }),
+      fail: 'true' == core.getInput("fail", { required: false })?.toLowerCase(),
+      include: core.getInput("include", { required: false }),
+      installDir: core.getInput("installDir", { required: false }),
+      nobuild: 'true' == core.getInput("nobuild", { required: false })?.toLowerCase(),
+      out: core.getInput("out", { required: false }),
+      project: core.getInput("project", { required: false }),
+      projectConfig: core.getInput("projectConfig", { required: false }),
+      property: core.getInput("property", { required: false }),
+      publish: 'true' == core.getInput("publish", { required: false })?.toLowerCase(),
+      reference: core.getInput("reference", { required: false }),
+      report: core.getInput("report", { required: false }),
+      resource: core.getInput("resource", { required: false }),
+      settings: core.getInput("settings", { required: false }),
+      showsettings: 'true' == core.getInput("showsettings", { required: false })?.toLowerCase(),
+      solution: core.getInput("solution", { required: false }),
+      solutionConfig: core.getInput("solutionConfig", { required: false }),
+      targetPlatform: core.getInput("targetPlatform", { required: false }),
+      testTagFilter: core.getInput("testTagFilter", { required: false }),
+      website: core.getInput("website", { required: false }),
+      workingDir: core.getInput("workingDir", { required: false }),
+      sarifMode: SarifMode[core.getInput("sarifMode", { required: false })],
+    };
+
+    // #2 pass options to logic entry point
+
+    const run = new runner.AnalysisRunner();
+    const cmd = await run.createCommandLine(options);
+    const outcome = await run.run(cmd, options.workingDir)
+
+    // #3 set output
+    
+    if(fs.existsSync(options.report))
+    {
+      core.setOutput("reportDir", options.report);
+    }
+    else
+    {
+      core.setOutput("report", null);
+    }
+
+    const sarifReport = path.join(options.report, 'report.sarif');
+    if(fs.existsSync(sarifReport))
+    {
+      core.setOutput("report", sarifReport);
+    }
+    else
+    {
+      core.setOutput("report", null);
+    }
+
+    if(outcome.exitCode != 0)
+    {
+      if(options.fail)
+      {
+        if(outcome.exitCode == 2)
+        {
+          core.setFailed('Run has been failed due to static analysis violations reported');
+        }
+        if(outcome.exitCode == 4)
+        {
+          core.setFailed('Run has been failed due to test failures reported');
+        }
+      }
+      core.setFailed('Run has been failed due to non-zero dotTEST exit code: ' + outcome.exitCode);
+    }
+  } catch (error) {
+    core.error("Failed to run dotTEST");
+    core.error(error);
+    core.setFailed(error.message);
+  }
+}
+
+if (require.main === module) {
+  run();
+}

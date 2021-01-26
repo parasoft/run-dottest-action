@@ -1,0 +1,99 @@
+name: dotTEST Analyzer
+
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "run-dottest-analyzer"
+  run-dottest-analyzer:
+    # Display name of the job
+    name: Analyze workspace with dotTEST
+    # The type of runner that the job will run on
+    runs-on: self-hosted
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # ---------------------------------------------------------------
+    # Run Parasoft dotTEST Analysis and generate .sarif report
+    - name: PROTO Run dotTEST analyzer
+      id: dottest
+      # You may pin to the exact commit or the version.
+      # uses: tobyash86/run-dottest-analyzer@1bc4be095189f455793afdb10b47127e06ae25ff
+      uses: parasoft/run-dottest-analyzer@latest
+      with:
+        # Path to working directory.
+        workingDir: # optional, default is ${{ github.workspace }}
+        # Path to folder containing dottestcli.exe. Will be looked up on PATH when not specified.
+        installDir: # optional
+        # Path to solution(s) to be analyzed. Specify multiple times to analyze many solutions. Supports ANT-style wildcards.
+        solution: # optional, default is .\*.sln
+        # Path to project(s) to be analyzed when solution is not provided. Specify multiple times to analyze many projects. Supports ANT-style wildcards.
+        project: # optional
+        # Full path to web site directory to be analyzed when solution is not provided.
+        website: # optional
+        # An URL of test configuration to be used for analysis
+        config: # optional, default is builtin://Recommended .NET Core Rules
+        # Solution path of a resource(s)
+        resource: # optional
+        # File-system paths of files to include in the analysis. Supports ANT-style wildcards. If not specified, all files are analyzed.
+        include: # optional
+        # File-system paths of files to exclude from the analysis. Supports ANT-style wildcards.
+        exclude: # optional
+        # Path to reference of analyzed assemblies. Specify multiple times to provide many references. Supports ANT-style wildcards.
+        reference: # optional
+        # Path to report directory or main report file.
+        report: # optional, default is ${{ github.workspace }}/.dottest/report/${{ github.run_number }}
+        # Publishes report to DTP server.
+        publish: # optional
+        # Path to settings file.
+        settings: # optional
+        # Single configuration setting in format "key=value".
+        property: # optional
+        # Disables build of the tested solutions or projects.
+        nobuild: # optional
+        # Run tests that are tagged with specific issue tracking types/IDs.
+        testTagFilter: # optional
+        # Solution configuration, e.g. "Debug".
+        solutionConfig: # optional
+        # Project configuration, e.g. "Debug".
+        projectConfig: # optional
+        # Solution configuration target platform, e.g. "Any CPU", or project configuration target platform, e.g. "AnyCPU".
+        targetPlatform: # optional
+        # Path where console output is saved.
+        out: # optional
+        # Fails the command with exit code 2 or 4 if any findings are reported. It is recommended to use it with continue-on-error: true.
+        fail: # optional
+        # List all settings used.
+        showsettings: # optional
+        # 'Specify mode for GitHub report (sarif) generation. You can use:
+        # - "legacy" - for dotTEST 2020.2 or older (default)
+        # - "builtin" - for dotTEST 2021.1 or newer'
+        sarifMode: # optional, default is legacy
+
+    # ---------------------------------------------------------------
+    # Archive the findings reports as job artifact
+    - name: Upload report artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Report files
+        path: ${{ steps.dottest.outputs.reportDir }}/*.*
+
+    # ---------------------------------------------------------------
+    # Upload the findings into the GitHub code scanning alert section
+    - name: Upload results to GitHub
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: ${{ steps.dottest.outputs.report }}

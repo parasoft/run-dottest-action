@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      timezone: Europe/London
+    reviewers:
+      - "tobyash86"
+    open-pull-requests-limit: 99

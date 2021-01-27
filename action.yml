@@ -36,7 +36,7 @@ inputs:
     description: 'File system paths to files to exclude from analysis. Supports ANT-style wildcards.'
     required: false
   reference:
-    description: 'Path to additional assemblies required to resolve. Specify a semicolon-separated list of paths to provide many references. Supports ANT-style wildcards.'
+    description: 'Path to additional assemblies required to resolve dependencies. Specify a semicolon-separated list of paths to provide many references. Supports ANT-style wildcards.'
     required: false
   report:
     description: 'Path to the directory where the report will be created.'

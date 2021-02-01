@@ -14,34 +14,11 @@
     "type": "git",
     "url": "git+https://github.com/parasoft/run-dottest-analyzer.git"
   },
-  "keywords": [
-    "actions",
-    "dotnet",
-    "github",
-    "dottest",
-    "parasoft",
-    "codeql",
-    "coding",
-    "standards",
-    "security",
-    "compliance",
-    "testing",
-    "static",
-    "flow",
-    "analysis",
-    "code",
-    "analyzer",
-    "c#",
-    "vb",
-    ".net",
-    "asp",
-    "asp.net"
-  ],
   "author": {
-    "name": "Parasoft",
+    "name": "Parasoft Corp.",
     "url": "https://github.com/parasoft"
   },
-  "license": "Apache-2.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/parasoft/run-dottest-analyzer/issues"
   },

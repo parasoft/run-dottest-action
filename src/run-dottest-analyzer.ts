@@ -5,6 +5,7 @@ import * as path from "path";
 import { RunOptions } from "./RunOptions";
 import * as runner from "./AnalysisRunner";
 import { SarifMode } from "./SarifMode";
+import { messages } from "./Messages";
 
 export async function run() {
   try {
@@ -70,17 +71,17 @@ export async function run() {
       {
         if(outcome.exitCode == 2)
         {
-          core.setFailed('Run has been failed due to static analysis violations reported');
+          core.setFailed(messages.failed_run_sa);
         }
         if(outcome.exitCode == 4)
         {
-          core.setFailed('Run has been failed due to test failures reported');
+          core.setFailed(messages.failed_run_ut);
         }
       }
-      core.setFailed('Run has been failed due to non-zero dotTEST exit code: ' + outcome.exitCode);
+      core.setFailed(messages.failed_run_non_zero + outcome.exitCode);
     }
   } catch (error) {
-    core.error("Failed to run dotTEST");
+    core.error(messages.run_failed);
     core.error(error);
     core.setFailed(error.message);
   }

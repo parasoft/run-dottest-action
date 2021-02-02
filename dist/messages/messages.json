@@ -1,0 +1,11 @@
+{
+    "no_wrk_dir_msg": "workingDir parameter cannot be empty",
+    "wrk_dir_not_exist": "Working directory does not exist: ",
+    "wrk_dir_label": "Working directory: ",
+    "cmd_label": "Command line: ",
+    "cmd_cannot_be_empty": "Command line cannot be empty.",
+    "failed_run_sa": "Run has been failed due to static analysis violations reported",
+    "failed_run_ut": "Run has been failed due to test failures reported",
+    "failed_run_non_zero": "Run has been failed due to non-zero dotTEST exit code: ",
+    "run_failed": "Failed to run dotTEST"
+}

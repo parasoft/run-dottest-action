@@ -6,6 +6,7 @@ import * as core from "@actions/core";
 import { performance } from 'perf_hooks';
 import { RunOptions } from './RunOptions';
 import { SarifMode } from './SarifMode';
+import { messages } from './Messages'
 
 export interface RunDetails
 {
@@ -42,7 +43,7 @@ export class AnalysisRunner
         // # Basic data computation
 
         if(!options.workingDir) {
-            return Promise.reject('workingDir parameter cannot be empty!')
+            return Promise.reject(messages.json.no_wrk_dir_msg);
         }
 
         if(options.installDir) {
@@ -172,8 +173,8 @@ export class AnalysisRunner
             return Promise.reject("Commandline cannot be empty.");
         }
 
-        core.info("WORKDIR: " + workingDir)
-        core.info("CMD: " + commandLine)
+        core.info(messages.json.wrk_dir_label + workingDir);
+        core.info(messages.json.cmd_label + commandLine);
 
         const runPromise = new Promise<RunDetails>((resolve, reject) =>
         {

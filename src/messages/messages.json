@@ -1,0 +1,5 @@
+{
+    "no_wrk_dir_msg": "workingDir parameter cannot be empty",
+    "wrk_dir_label": "Working directory: ",
+    "cmd_label": "Command line: "
+}

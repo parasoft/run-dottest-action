@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+
 <!-- Uncomment for custom transformation - start section -->
 <xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:saxon="http://icl.com/saxon" extension-element-prefixes="saxon">
 <!-- end uncomment section -->
@@ -169,9 +170,9 @@
         <xsl:text>, </xsl:text>
         <xsl:call-template name="region">
         	<xsl:with-param name="startLine" select="@locStartln"/>
-        	<xsl:with-param name="startColumn" select="@locStartPos+1"/>
+        	<xsl:with-param name="startColumn" select="@locStartPos"/>
         	<xsl:with-param name="endLine" select="@locEndLn"/>
-        	<xsl:with-param name="endColumn" select="@locEndPos+1"/>
+        	<xsl:with-param name="endColumn" select="@locEndPos"/>
         </xsl:call-template>
         <xsl:text> }</xsl:text>
     </xsl:template>
@@ -251,9 +252,9 @@
         <xsl:text>, </xsl:text>
         <xsl:call-template name="region">
         	<xsl:with-param name="startLine" select="@srcRngStartln"/>
-        	<xsl:with-param name="startColumn" select="@srcRngStartPos+1"/>
+        	<xsl:with-param name="startColumn" select="@srcRngStartPos"/>
         	<xsl:with-param name="endLine" select="@srcRngEndLn"/>
-        	<xsl:with-param name="endColumn" select="@srcRngEndPos+1"/>
+        	<xsl:with-param name="endColumn" select="@srcRngEndPos"/>
         </xsl:call-template>
         <xsl:text> }</xsl:text>
     </xsl:template>
@@ -318,15 +319,43 @@
         <xsl:param name="endLine"/>
         <xsl:param name="endColumn"/>
         
-        <xsl:text>"region": { "startLine": </xsl:text>
-        <xsl:value-of select="$startLine" />
-        <xsl:text>, "startColumn": </xsl:text>
-        <xsl:value-of select="$startColumn" />
-        <xsl:text>, "endLine": </xsl:text>
-        <xsl:value-of select="$endLine" />
-        <xsl:text>, "endColumn": </xsl:text>
-        <xsl:value-of select="$endColumn" />
-        <xsl:text> }</xsl:text>
+        <xsl:if test="$startLine > 0">
+            
+            <xsl:text>"region": { "startLine": </xsl:text>
+            <xsl:value-of select="$startLine" />
+            
+            <xsl:text>, "startColumn": </xsl:text>
+            <xsl:choose>
+                <xsl:when test="$startColumn > 0">
+                    <xsl:value-of select="$startColumn + 1" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>1</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            
+            <xsl:choose>
+                <xsl:when test="$endColumn > 0">
+                    <xsl:if test="$endLine > $startLine">
+                        <xsl:text>, "endLine": </xsl:text>
+                        <xsl:value-of select="$endLine" />
+                    </xsl:if>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="$endLine - 1 > $startLine">
+                        <xsl:text>, "endLine": </xsl:text>
+                        <xsl:value-of select="$endLine - 1" />
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
+            
+            <xsl:if test="$endColumn > 0">
+                <xsl:text>, "endColumn": </xsl:text>
+                <xsl:value-of select="$endColumn + 1" />
+            </xsl:if>
+            <xsl:text> }</xsl:text>
+            
+        </xsl:if>
     </xsl:template>
     
     <xsl:template name="escape_illegal_chars">

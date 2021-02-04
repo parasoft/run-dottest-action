@@ -9,7 +9,7 @@
     "watch": "tsc -watch -p ./",
     "lint": "eslint --ext .ts .",
     "test": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} mocha -u tdd -r ts-node/register 'tests/**/*.ts'",
-    "copyArtifacts": "copyfiles ./src/messages/*.json ./sarif.xsl ./dist"
+    "copyArtifacts": "copyfiles --flat ./src/messages/*.json ./dist/messages && copyfiles --flat ./sarif.xsl ./dist"
   },
   "repository": {
     "type": "git",

@@ -6,6 +6,6 @@
     "cmd_cannot_be_empty": "Command line cannot be empty.",
     "failed_run_sa": "dotTEST run failed because static analysis violations were reported",
     "failed_run_ut": "dotTEST run failed because failed unit tests were reported",
-    "failed_run_non_zero": "dotTEST run failed with a non-zero dotTEST exit code:",
+    "failed_run_non_zero": "dotTEST run failed with a non-zero dotTEST exit code: ",
     "run_failed": "Failed to run dotTEST"
 }

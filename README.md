@@ -78,7 +78,7 @@ To upload the SARIF report to GitHub, modify your workflow to add the `upload-sa
 - name: Run dotTEST analyzer
   id: dottest
   uses: parasoft/run-dottest-analyzer@latest
-# ...
+  # ...
 
 # Upload analysis results to GitHub.
 - name: Upload results to GitHub

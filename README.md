@@ -69,24 +69,49 @@ jobs:
 
 ### Uploading Results to GitHub
 By default, the dotTEST action always generates a SARIF report. When you upload the report to GitHub, the results will be presented as GitHub code scanning alerts. This allows you to review the results of code analysis with Parasoft dotTEST directly on GitHub as part of your project.
-To upload the SARIF report to GitHub, modify your workflow to add the `upload-sarif` action, which is part of the [github/codeql-action](https://github.com/github/codeql-action) repository):
+To upload the SARIF report to GitHub, modify your workflow to add the `upload-sarif` action, which is part of the [github/codeql-action](https://github.com/github/codeql-action) repository).
+
+**Important!** To automatically upload the results, ensure that the path to the SARIF file is configured as the `${{ steps.[dottest_action_id].outputs.report }}` variable. In the following example the id of the dotTEST action is `dottest`.
 
 ```yaml
-    - name: Upload results to GitHub
+# Run Parasoft dotTEST Analysis and generate .sarif report.
+- name: Run dotTEST analyzer
+  id: dottest
+# Optional parameters
+# ...
+
+# Upload analysis results to GitHub.
+- name: Upload results to GitHub
       uses: github/codeql-action/upload-sarif@v1
       with:
         sarif_file: ${{ steps.dottest.outputs.report }}
 ```
 
 #### Adding Other Job Artifacts to a GitHub Workflow
-You can upload other job artifacts to GitHub and link them with your workflow by using the `upload artifact` action:
+You can upload other job artifacts, such as additional dotTEST reports, to GitHub and link them with your workflow by using the `upload artifact` action.
+
+**Important!** To automatically upload job artifacts, ensure that the path to the directory where they are stored is configured as the `${{ steps.[dottest_action_id].outputs.reportDir }}/*.*` variable. In the following example the id of the dotTEST action is `dottest`.
+
 
 ```yaml
+# Run Parasoft dotTEST Analysis and generate .sarif report.
+- name: Run dotTEST analyzer
+  id: dottest
+# Optional parameters
+# ...
+
+# Upload analysis results to GitHub.
+- name: Upload results to GitHub
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: ${{ steps.dottest.outputs.report }}
+
+# Archive reports from analysis as job artifacts.
 - name: Upload report artifacts
       uses: actions/upload-artifact@v2
       with:
         name: Report files
-        path: ${{ steps.dottest.inputs.report }}/*.*
+        path: ${{ steps.dottest.outputs.reportDir }}/*.*
 ```
 
 ## Configuring Analysis with dotTEST

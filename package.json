@@ -5,10 +5,11 @@
   "description": "A GitHub Action for running Parasoft dotTEST analysis",
   "main": "lib/run-dottest-analyzer.js",
   "scripts": {
-    "compile": "tsc -p ./ && ncc build",
+    "compile": "npm run copyArtifacts && tsc -p ./ && ncc build",
     "watch": "tsc -watch -p ./",
     "lint": "eslint --ext .ts .",
-    "test": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} mocha -u tdd -r ts-node/register 'tests/**/*.ts'"
+    "test": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} mocha -u tdd -r ts-node/register 'tests/**/*.ts'",
+    "copyArtifacts": "copyfiles ./src/messages/*.json ./sarif.xsl ./dist"
   },
   "repository": {
     "type": "git",
@@ -45,6 +46,7 @@
     "sinon": "^9.2.4",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3",
-    "typescript-eslint": "0.0.1-alpha.0"
+    "typescript-eslint": "0.0.1-alpha.0",
+    "copyfiles": "^2.4.1"
   }
 }

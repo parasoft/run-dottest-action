@@ -77,6 +77,7 @@ To upload the SARIF report to GitHub, modify your workflow to add the `upload-sa
 # Run Parasoft dotTEST Analysis and generate .sarif report.
 - name: Run dotTEST analyzer
   id: dottest
+  uses: parasoft/run-dottest-analyzer@latest
 # Optional parameters
 # ...
 
@@ -97,7 +98,7 @@ You can upload other job artifacts, such as additional dotTEST reports, to GitHu
 # Run Parasoft dotTEST Analysis and generate .sarif report.
 - name: Run dotTEST analyzer
   id: dottest
-# Optional parameters
+  uses: parasoft/run-dottest-analyzer@latest
 # ...
 
 # Upload analysis results to GitHub.

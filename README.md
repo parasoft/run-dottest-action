@@ -74,11 +74,10 @@ To upload the SARIF report to GitHub, modify your workflow to add the `upload-sa
 **Important!** To automatically upload the results, ensure that the path to the SARIF file is configured as the `${{ steps.[dottest_action_id].outputs.report }}` variable. In the following example the id of the dotTEST action is `dottest`.
 
 ```yaml
-# Run Parasoft dotTEST Analysis and generate .sarif report.
+# Run Parasoft dotTEST Analysis and generate the .sarif report.
 - name: Run dotTEST analyzer
   id: dottest
   uses: parasoft/run-dottest-analyzer@latest
-# Optional parameters
 # ...
 
 # Upload analysis results to GitHub.
@@ -95,7 +94,7 @@ You can upload other job artifacts, such as additional dotTEST reports, to GitHu
 
 
 ```yaml
-# Run Parasoft dotTEST Analysis and generate .sarif report.
+# Run Parasoft dotTEST Analysis and generate the .sarif report.
 - name: Run dotTEST analyzer
   id: dottest
   uses: parasoft/run-dottest-analyzer@latest

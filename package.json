@@ -19,7 +19,7 @@
     "name": "Parasoft Corp.",
     "url": "https://github.com/parasoft"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/parasoft/run-dottest-analyzer/issues"
   },

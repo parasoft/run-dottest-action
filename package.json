@@ -5,40 +5,18 @@
   "description": "A GitHub Action for running Parasoft dotTEST analysis",
   "main": "lib/run-dottest-analyzer.js",
   "scripts": {
-    "compile": "tsc -p ./ && ncc build",
+    "compile": "npm run copyArtifacts && tsc -p ./ && ncc build",
     "watch": "tsc -watch -p ./",
     "lint": "eslint --ext .ts .",
-    "test": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} mocha -u tdd -r ts-node/register 'tests/**/*.ts'"
+    "test": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} mocha -u tdd -r ts-node/register 'tests/**/*.ts'",
+    "copyArtifacts": "copyfiles ./src/messages/*.json ./sarif.xsl ./dist"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/parasoft/run-dottest-analyzer.git"
   },
-  "keywords": [
-    "actions",
-    "dotnet",
-    "github",
-    "dottest",
-    "parasoft",
-    "codeql",
-    "coding",
-    "standards",
-    "security",
-    "compliance",
-    "testing",
-    "static",
-    "flow",
-    "analysis",
-    "code",
-    "analyzer",
-    "c#",
-    "vb",
-    ".net",
-    "asp",
-    "asp.net"
-  ],
   "author": {
-    "name": "Parasoft",
+    "name": "Parasoft Corp.",
     "url": "https://github.com/parasoft"
   },
   "license": "Apache-2.0",
@@ -57,8 +35,8 @@
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.2.0",
     "@types/sinon": "^9.0.10",
-    "@typescript-eslint/eslint-plugin": "^4.14.1",
-    "@typescript-eslint/parser": "^4.14.1",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
     "@vercel/ncc": "^0.27.0",
     "chai": "^4.2.0",
     "cross-env": "^7.0.3",
@@ -68,6 +46,7 @@
     "sinon": "^9.2.4",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3",
-    "typescript-eslint": "0.0.1-alpha.0"
+    "typescript-eslint": "0.0.1-alpha.0",
+    "copyfiles": "^2.4.1"
   }
 }

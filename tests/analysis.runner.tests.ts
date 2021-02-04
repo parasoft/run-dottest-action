@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import * as sinon from 'sinon';
 
 import { AnalysisRunner } from '../src/AnalysisRunner';
+import { messages } from '../src/Messages';
 import * as fs from 'fs';
 import * as cp from 'child_process';
 
@@ -33,7 +34,7 @@ suite('vscode-common/runner', function() {
         }
 
         // Assert
-        assert.strictEqual(error, 'Working directory FAKE_WORK_DIR does not exist.');
+        assert.strictEqual(error, messages.wrk_dir_not_exist + 'FAKE_WORK_DIR');
     });
 
     test('Start run while command line is empty test', async function() {
@@ -53,7 +54,7 @@ suite('vscode-common/runner', function() {
         }
 
         // Assert
-        assert.strictEqual(error, 'Commandline cannot be empty.');
+        assert.strictEqual(error, messages.cmd_cannot_be_empty);
     });
 
     test('Start run for invalid CMD', async function() {

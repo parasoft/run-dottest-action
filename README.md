@@ -82,9 +82,9 @@ To upload the SARIF report to GitHub, modify your workflow to add the `upload-sa
 
 # Upload analysis results to GitHub.
 - name: Upload results to GitHub
-      uses: github/codeql-action/upload-sarif@v1
-      with:
-        sarif_file: ${{ steps.dottest.outputs.report }}
+  uses: github/codeql-action/upload-sarif@v1
+  with:
+    sarif_file: ${{ steps.dottest.outputs.report }}
 ```
 
 #### Adding Other Job Artifacts to a GitHub Workflow
@@ -98,20 +98,20 @@ You can upload other job artifacts, such as additional dotTEST reports, to GitHu
 - name: Run dotTEST analyzer
   id: dottest
   uses: parasoft/run-dottest-analyzer@latest
-# ...
+  # ...
 
 # Upload analysis results to GitHub.
 - name: Upload results to GitHub
-      uses: github/codeql-action/upload-sarif@v1
-      with:
-        sarif_file: ${{ steps.dottest.outputs.report }}
+  uses: github/codeql-action/upload-sarif@v1
+  with:
+    sarif_file: ${{ steps.dottest.outputs.report }}
 
 # Archive reports from analysis as job artifacts.
 - name: Upload report artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: Report files
-        path: ${{ steps.dottest.outputs.reportDir }}/*.*
+  uses: actions/upload-artifact@v2
+  with:
+    name: Report files
+    path: ${{ steps.dottest.outputs.reportDir }}/*.*
 ```
 
 ## Configuring Analysis with dotTEST
@@ -129,10 +129,10 @@ ANT-style wildcards are supported.
 If dottestcli.exe is not on PATH, you can configure the path to the installation directory of Parasoft dotTEST, which contains dottestcli.exe, by adding the `installDir` parameter do the pre-defined action.
 
 ```yaml
-      - name: Run dotTEST analyzer
-        uses: tobyash86/run-dottest-analyzer-proto@prda0.1.6a
-        with:
-         installDir: 'c:\Program Files\Parasoft\dotTEST\2021.1'
+- name: Run dotTEST analyzer
+  uses: tobyash86/run-dottest-analyzer-proto@prda0.1.6a
+  with:
+    installDir: 'c:\Program Files\Parasoft\dotTEST\2021.1'
 ```
 
 #### Configuring a dotTEST Test Configuration
@@ -141,41 +141,40 @@ To configure a test configuration directly in your workflow, add the `config` pa
 
 
 ```yaml
-    - name: Run dotTEST analyzer
-      uses: tobyash86/run-dottest-analyzer-proto@prda0.1.6a
-      with:
-        config: 'builtin://OWASP Top 10-2017'
+- name: Run dotTEST analyzer
+  uses: tobyash86/run-dottest-analyzer-proto@prda0.1.6a
+  with:
+    config: 'builtin://OWASP Top 10-2017'
 ```
 
 Alternatively, you can provide workspace-relative path to the .properties file where your test configuration is defined:
 
 ```yaml
-    - name: Run dotTEST analyzer
-      uses: tobyash86/run-dottest-analyzer-proto@prda0.1.6a
-      with:
-        config: '.\.dottest\MyTestConfig.properties'
+- name: Run dotTEST analyzer
+  uses: tobyash86/run-dottest-analyzer-proto@prda0.1.6a
+  with:
+    config: '.\.dottest\MyTestConfig.properties'
 ```
 
 #### Defining the Scope for Analysis
 You configure the `solution` parameter to provide the path to the solution you want to analyze. This parameter is particularly useful when your workflow has a complex structure and includes several solution files.
 
 ```yaml
-    - name: Run dotTEST analyzer
-      uses: tobyash86/run-dottest-analyzer-proto@prda0.1.6a
-      with:
-        solution: '.\src\*.sln'
+- name: Run dotTEST analyzer
+  uses: tobyash86/run-dottest-analyzer-proto@prda0.1.6a
+  with:
+    solution: '.\src\*.sln'
 ```
 
 ### Configuring Parameters with Multiple Values
 Regular configuration of dotTEST allows you to specify certain parameters more than once to configure multiple values. However, in GitHub actions, one parameter can be specified only once per action. Instead of specifying the same parameter multiple times, add it once and provide a list of semicolon-separated values:
 
 ```yaml
-    - name: Run dotTEST analyzer
-
-      uses: tobyash86/run-dottest-analyzer-proto@prda0.1.6a
-      with:
-        solution: '.\src1\MySln1.sln;
-          .\src2\MySln2.sln'
+- name: Run dotTEST analyzer
+  uses: tobyash86/run-dottest-analyzer-proto@prda0.1.6a
+  with:
+    solution: '.\src1\MySln1.sln;
+      .\src2\MySln2.sln'
 ```
 
 ## Optional Parameters

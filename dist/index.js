@@ -15,6 +15,7 @@ const pt = __nccwpck_require__(622);
 const core = __nccwpck_require__(186);
 const perf_hooks_1 = __nccwpck_require__(630);
 const SarifMode_1 = __nccwpck_require__(202);
+const Messages_1 = __nccwpck_require__(359);
 class AnalysisRunner {
     constructor() {
         this.QUOTE = '"';
@@ -26,7 +27,7 @@ class AnalysisRunner {
         let cmd = '';
         // # Basic data computation
         if (!options.workingDir) {
-            return Promise.reject('workingDir parameter cannot be empty!');
+            return Promise.reject(Messages_1.messages.no_wrk_dir_msg);
         }
         if (options.installDir) {
             cmd += this.QUOTE + pt.join(options.installDir, 'dottestcli.exe') + this.QUOTE;
@@ -125,14 +126,14 @@ class AnalysisRunner {
     }
     async run(commandLine, workingDir, options) {
         if (!fs.existsSync(workingDir)) {
-            return Promise.reject("Working directory " + workingDir + " does not exist.");
+            return Promise.reject(Messages_1.messages.wrk_dir_not_exist + workingDir);
         }
         commandLine = commandLine.trim();
         if (commandLine.length === 0) {
-            return Promise.reject("Commandline cannot be empty.");
+            return Promise.reject(Messages_1.messages.cmd_cannot_be_empty);
         }
-        core.info("WORKDIR: " + workingDir);
-        core.info("CMD: " + commandLine);
+        core.info(Messages_1.messages.wrk_dir_label + workingDir);
+        core.info(Messages_1.messages.cmd_label + commandLine);
         const runPromise = new Promise((resolve, reject) => {
             var _a, _b;
             const cliEnv = this.createEnvironment();
@@ -147,7 +148,6 @@ class AnalysisRunner {
                 'wasCancelled': false,
             };
             (_a = cliProcess.stdout) === null || _a === void 0 ? void 0 : _a.on('data', (data) => {
-                // this.outChannel.append(`${data}`);
                 core.info(`${data}`);
             });
             (_b = cliProcess.stderr) === null || _b === void 0 ? void 0 : _b.on('data', (data) => { core.info(`${data}`); });
@@ -192,6 +192,27 @@ exports.AnalysisRunner = AnalysisRunner;
 
 /***/ }),
 
+/***/ 359:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.messages = void 0;
+const fs = __nccwpck_require__(747);
+const pt = __nccwpck_require__(622);
+class Messages {
+    deserialize(jsonPath) {
+        const buf = fs.readFileSync(jsonPath);
+        const json = JSON.parse(buf.toString('utf-8'));
+        return json;
+    }
+}
+const jsonPath = pt.join(__dirname, 'messages/messages.json');
+exports.messages = new Messages().deserialize(jsonPath);
+//# sourceMappingURL=Messages.js.map
+
+/***/ }),
+
 /***/ 202:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -218,6 +239,7 @@ const fs = __nccwpck_require__(747);
 const path = __nccwpck_require__(622);
 const runner = __nccwpck_require__(880);
 const SarifMode_1 = __nccwpck_require__(202);
+const Messages_1 = __nccwpck_require__(359);
 async function run() {
     var _a, _b, _c, _d;
     try {
@@ -268,17 +290,17 @@ async function run() {
         if (outcome.exitCode != 0) {
             if (options.fail) {
                 if (outcome.exitCode == 2) {
-                    core.setFailed('Run has been failed due to static analysis violations reported');
+                    core.setFailed(Messages_1.messages.failed_run_sa);
                 }
                 if (outcome.exitCode == 4) {
-                    core.setFailed('Run has been failed due to test failures reported');
+                    core.setFailed(Messages_1.messages.failed_run_ut);
                 }
             }
-            core.setFailed('Run has been failed due to non-zero dotTEST exit code: ' + outcome.exitCode);
+            core.setFailed(Messages_1.messages.failed_run_non_zero + outcome.exitCode);
         }
     }
     catch (error) {
-        core.error("Failed to run dotTEST");
+        core.error(Messages_1.messages.run_failed);
         core.error(error);
         core.setFailed(error.message);
     }

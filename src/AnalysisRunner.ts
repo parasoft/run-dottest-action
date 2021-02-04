@@ -43,7 +43,7 @@ export class AnalysisRunner
         // # Basic data computation
 
         if(!options.workingDir) {
-            return Promise.reject(messages.json.no_wrk_dir_msg);
+            return Promise.reject(messages.no_wrk_dir_msg);
         }
 
         if(options.installDir) {
@@ -166,15 +166,15 @@ export class AnalysisRunner
     async run(commandLine : string, workingDir : string, options? : RuntimeOptions) : Promise<RunDetails>
     {
         if (!fs.existsSync(workingDir)) {
-            return Promise.reject("Working directory " + workingDir + " does not exist.");
+            return Promise.reject(messages.wrk_dir_not_exist + workingDir);
         }
         commandLine = commandLine.trim();
         if (commandLine.length === 0) {
-            return Promise.reject("Commandline cannot be empty.");
+            return Promise.reject(messages.cmd_cannot_be_empty);
         }
 
-        core.info(messages.json.wrk_dir_label + workingDir);
-        core.info(messages.json.cmd_label + commandLine);
+        core.info(messages.wrk_dir_label + workingDir);
+        core.info(messages.cmd_label + commandLine);
 
         const runPromise = new Promise<RunDetails>((resolve, reject) =>
         {
@@ -190,7 +190,6 @@ export class AnalysisRunner
                 'wasCancelled' : false,
             };
             cliProcess.stdout?.on('data', (data) => {
-                // this.outChannel.append(`${data}`);
                 core.info(`${data}`);
             });
             cliProcess.stderr?.on('data', (data) => { core.info(`${data}`); });

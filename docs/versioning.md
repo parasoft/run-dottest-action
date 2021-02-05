@@ -8,9 +8,9 @@ Pre-release versions should be suffixed with `b` literal, e.g.:
 
 `v1.2b`
 
-## Using latest version used for user convenience and example scripts simplicity
+## Using `latest` version used for user convenience and example scripts simplicity
 
-We should remember that after each new release we should move `latest' to the newest released version.
+We should remember that after each new release we should move `latest` to the newest released version.
 
 Usage in scripts:
 

@@ -136,7 +136,7 @@ If dottestcli.exe is not on PATH, you can configure the path to the installation
 ```
 
 #### Configuring a dotTEST Test Configuration
-Code analysis with dotTEST is performed by using a test configuration - a set of static analysis rules that enforce best coding practices. Parasoft dotTEST ships with a wide range of [build-in test configurations](https://docs.parasoft.com/display/DOTTEST20202/Built-in+Test+Configurations), as well as allows you to [create your own!](https://docs.parasoft.com/display/ENGINES1031/.Creating+Custom+Test+Configurations+v2020.2).
+Code analysis with dotTEST is performed by using a test configuration - a set of static analysis rules that enforce best coding practices. Parasoft dotTEST ships with a wide range of [build-in test configurations](https://docs.parasoft.com/display/DOTTEST20202/Built-in+Test+Configurations), as well as allows you to [create your own!](https://docs.parasoft.com/display/DOTTEST20202/Creating+Custom+Test+Configurations)
 To configure a test configuration directly in your workflow, add the `config` parameter to your dotTEST action and specify the URL of the test configuration you want to use:
 
 

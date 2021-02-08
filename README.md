@@ -60,7 +60,7 @@ jobs:
       # The name for your step to display on GitHub.
       - name: Run dotTEST analyzer
         # Specifies the action to run as part of this step.
-        uses: parasoft/run-dottest-analyzer@latest
+        uses: parasoft/run-dottest-analyzer@1.0.0
         
         # When specifying the action, you can reference a specific commit or version:
         # uses: parasoft/run-dottest-analyzer@1bc4be095189f455793afdb10b47127e06ae25ff
@@ -77,7 +77,7 @@ To upload the SARIF report to GitHub, modify your workflow to add the `upload-sa
 # Run Parasoft dotTEST Analysis and generate the .sarif report.
 - name: Run dotTEST analyzer
   id: dottest
-  uses: parasoft/run-dottest-analyzer@latest
+  uses: parasoft/run-dottest-analyzer@1.0.0
   # ...
 
 # Upload analysis results to GitHub.
@@ -97,7 +97,7 @@ You can upload other job artifacts, such as additional dotTEST reports, to GitHu
 # Run Parasoft dotTEST Analysis and generate the .sarif report.
 - name: Run dotTEST analyzer
   id: dottest
-  uses: parasoft/run-dottest-analyzer@latest
+  uses: parasoft/run-dottest-analyzer@1.0.0
   # ...
 
 # Upload analysis results to GitHub.
@@ -130,19 +130,19 @@ If dottestcli.exe is not on PATH, you can configure the path to the installation
 
 ```yaml
 - name: Run dotTEST analyzer
-  uses: parasoft/run-dottest-analyzer@latest
+  uses: parasoft/run-dottest-analyzer@1.0.0
   with:
     installDir: 'c:\Program Files\Parasoft\dotTEST\2021.1'
 ```
 
 #### Configuring a dotTEST Test Configuration
-Code analysis with dotTEST is performed by using a test configuration - a set of static analysis rules that enforce best coding practices. Parasoft dotTEST ships with a wide range of [build-in test configurations](https://docs.parasoft.com/display/DOTTEST20202/Built-in+Test+Configurations), as well as allows you to [create your own!](https://docs.parasoft.com/display/ENGINES1031/.Creating+Custom+Test+Configurations+v2020.2).
+Code analysis with dotTEST is performed by using a test configuration - a set of static analysis rules that enforce best coding practices. Parasoft dotTEST ships with a wide range of [build-in test configurations](https://docs.parasoft.com/display/DOTTEST20202/Built-in+Test+Configurations), as well as allows you to [create your own!](https://docs.parasoft.com/display/DOTTEST20202/Creating+Custom+Test+Configurations)
 To configure a test configuration directly in your workflow, add the `config` parameter to your dotTEST action and specify the URL of the test configuration you want to use:
 
 
 ```yaml
 - name: Run dotTEST analyzer
-  uses: parasoft/run-dottest-analyzer@latest
+  uses: parasoft/run-dottest-analyzer@1.0.0
   with:
     config: 'builtin://OWASP Top 10-2017'
 ```
@@ -151,7 +151,7 @@ Alternatively, you can provide workspace-relative path to the .properties file w
 
 ```yaml
 - name: Run dotTEST analyzer
-  uses: parasoft/run-dottest-analyzer@latest
+  uses: parasoft/run-dottest-analyzer@1.0.0
   with:
     config: '.\.dottest\MyTestConfig.properties'
 ```
@@ -161,7 +161,7 @@ You configure the `solution` parameter to provide the path to the solution you w
 
 ```yaml
 - name: Run dotTEST analyzer
-  uses: parasoft/run-dottest-analyzer@latest
+  uses: parasoft/run-dottest-analyzer@1.0.0
   with:
     solution: '.\src\*.sln'
 ```
@@ -171,7 +171,7 @@ Regular configuration of dotTEST allows you to specify certain parameters more t
 
 ```yaml
 - name: Run dotTEST analyzer
-  uses: parasoft/run-dottest-analyzer@latest
+  uses: parasoft/run-dottest-analyzer@1.0.0
   with:
     solution: '.\src1\MySln1.sln;
       .\src2\MySln2.sln'

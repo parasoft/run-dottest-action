@@ -1,4 +1,4 @@
-name: 'Run dotTEST Analyzer'
+name: 'Run Parasoft dotTEST'
 description: 'A GitHub Action for running Parasoft dotTEST analysis.'
 author: 'Parasoft'
 branding:

@@ -13,7 +13,7 @@ export async function run() {
     // #1 Fill options object
 
     const options: RunOptions = {
-      config: core.getInput("config", { required: false }),
+      config: core.getInput("testConfig", { required: false }),
       exclude: core.getInput("exclude", { required: false }),
       fail: 'true' == core.getInput("fail", { required: false })?.toLowerCase(),
       include: core.getInput("include", { required: false }),

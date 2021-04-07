@@ -1,4 +1,4 @@
-name: 'Run dotTEST Analyzer'
+name: 'Run Parasoft dotTEST'
 description: 'A GitHub Action for running Parasoft dotTEST analysis.'
 author: 'Parasoft'
 branding:
@@ -22,7 +22,7 @@ inputs:
   website:
     description: 'Full path to the website directory to be analyzed when no solution is provided.'
     required: false
-  config:
+  testConfig:
     description: 'URL of the test configuration to be used for analysis.'
     required: false
     default: 'builtin://Recommended .NET Core Rules'

@@ -1,4 +1,4 @@
-# Run dotTEST Analyzer
+# Run Parasoft dotTEST
 
 ![Build](https://github.com/parasoft/run-dottest-analyzer/workflows/Build/badge.svg)
 ![Unit Tests](https://github.com/parasoft/run-dottest-analyzer/workflows/Unit%20Tests/badge.svg)
@@ -6,9 +6,8 @@
 
 This action enables you to run code analysis with Parasoft dotTEST and review analysis results directly on GitHub.
 
-Parasoft dotTEST is a testing tool that automates software quality practices for .NET applications. It uses a comprehensive set of analysis techniques, including pattern-based static analysis, dataflow analysis, metrics, code coverage, and unit testing to help you verify code quality and ensure compliance with industry standards, such as CWE or OWASP.
+Parasoft dotTEST is a testing tool that automates software quality practices for C# and VB.NET applications. It uses a comprehensive set of analysis techniques, including pattern-based static analysis, dataflow analysis, metrics, code coverage, and unit testing to help you verify code quality and ensure compliance with industry standards, such as CWE or OWASP.
 
-Parasoft dotTEST is a testing tool that automates software quality practices for C# and VB.NET applications. 
  - Request [a free trial](https://www.parasoft.com/products/parasoft-dottest/dottest-request-a-demo/) to receive access to Parasoft dotTEST's features and capabilities.
  - See the [user guide](https://docs.parasoft.com/display/DOTTEST20202) for information about Parasoft dotTEST's capabilities and usage.
 
@@ -27,12 +26,12 @@ This action requires Parasoft dotTEST with a valid Parasoft license.
 We recommend that you run Parasoft dotTEST on a self-hosted rather than GitHub-hosted runner.
 
 ### Adding the dotTEST Action to a GitHub Workflow
-Add the `Run dotTEST` action to your workflow to launch code analysis with Parasoft dotTEST.
+Add the `Run Parasoft dotTEST` action to your workflow to launch code analysis with Parasoft dotTEST.
 
 The following example shows a simple workflow made up of one job "Run code analysis with dotTEST". The example assumes that dotTEST is run on a self-hosted runner and the path to dottestcli.exe is available on PATH.
 
 ```yaml
-# This is a basic workflow to help you get started with the Run dotTEST action.
+# This is a basic workflow to help you get started with the Run Parasoft dotTEST action.
 
 name: dotTEST Simple Workflow
 
@@ -60,17 +59,17 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs code analysis with dotTEST.
-      - name: Run dotTEST
+      - name: Run Parasoft dotTEST
         # Specifies the action to run.
-        uses: parasoft/run-dottest-action@1.0.0
+        uses: parasoft/run-dottest-action@1.1.0
         
         # You can reference a specific commit or version:
-        # uses: parasoft/run-dottest-analyzer@1bc4be095189f455793afdb10b47127e06ae25ff
+        # uses: parasoft/run-dottest-action@1bc4be095189f455793afdb10b47127e06ae25ff
         
 ```
 
 ### Uploading Analysis Results to GitHub
-By default, the `Run dotTEST` action generates analysis reports in the SARIF, XML, and HTML format (if you are using a dotTEST version earlier than 2021.1, see [Generating SARIF Reports with dotTEST 2020.2 or Earlier](#generating-sarif-reports-with-dottest-20202-or-earlier)).
+By default, the `Run Parasoft dotTEST` action generates analysis reports in the SARIF, XML, and HTML format (if you are using a dotTEST version earlier than 2021.1, see [Generating SARIF Reports with dotTEST 2020.2 or Earlier](#generating-sarif-reports-with-dottest-20202-or-earlier)).
 
 When you upload the SARIF report to GitHub, the results will be presented as GitHub code scanning alerts. This allows you to review the results of code analysis with Parasoft dotTEST directly on GitHub as part of your project.
 To upload the SARIF report to GitHub, modify your workflow by adding the `upload-sarif` action.
@@ -83,9 +82,9 @@ To upload reports in other formats, modify your workflow by adding  the `upload-
 
 ```yaml
 # Runs Parasoft dotTEST and generates the reports.
-- name: Run dotTEST
+- name: Run Parasoft dotTEST
   id: dottest
-  uses: parasoft/run-dottest-analyzer@1.0.0
+  uses: parasoft/run-dottest-action@1.1.0
   # ...
 
 # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
@@ -104,7 +103,7 @@ To upload reports in other formats, modify your workflow by adding  the `upload-
 
 ## Configuring Analysis with dotTEST
 You can configure analysis with Parasoft dotTEST in one of the following ways:
- - By customizing the `Run dotTEST` action directly in your GitHub workflow. See [Action Parameters](#action-parameters) for a complete list of available parameters.
+ - By customizing the `Run Parasoft dotTEST` action directly in your GitHub workflow. See [Action Parameters](#action-parameters) for a complete list of available parameters.
  - By configuring options in Parasoft dotTEST tool. We recommend creating a `dottestcli.properties` file that includes all the configuration options and adding the file to dotTEST's working directory  - typically, the root directory of your repository. This allows dotTEST to automatically read all the configuration options from that file. See [Parasoft dotTEST User Guide](https://docs.parasoft.com/display/DOTTEST20202) for details.
  
 ### Examples
@@ -114,19 +113,19 @@ This section includes practical examples of how the dotTEST action can be custom
 If `dottestcli` executable is not on `PATH`, you can configure the path to the installation directory of Parasoft dotTEST by configuring the `installDir` parameter:
 
 ```yaml
-- name: Run dotTEST
-  uses: parasoft/run-dottest-action@1.0.0
+- name: Run Parasoft dotTEST
+  uses: parasoft/run-dottest-action@1.1.0
   with:
     installDir: 'c:\Program Files\Parasoft\dotTEST\2021.1'
 ```
 
 #### Configuring a dotTEST Test Configuration
 Code analysis with dotTEST is performed by using a test configuration - a set of static analysis rules that enforce best coding practices. Parasoft dotTEST ships with a wide range of [build-in test configurations](https://docs.parasoft.com/display/DOTTEST20202/Built-in+Test+Configurations).
-To specify a test configuration directly in your workflow, add the `testConfig` parameter to the `Run dotTEST` action and specify the URL of the test configuration you want to use:
+To specify a test configuration directly in your workflow, add the `testConfig` parameter to the `Run ParasoftdotTEST` action and specify the URL of the test configuration you want to use:
 
 ```yaml
-- name: Run dotTEST analyzer
-  uses: parasoft/run-dottest-analyzer@1.0.0
+- name: Run Parasoft dotTEST
+  uses: parasoft/run-dottest-action@1.1.0
   with:
     testConfig: 'builtin://OWASP Top 10-2017'
 ```
@@ -134,18 +133,19 @@ To specify a test configuration directly in your workflow, add the `testConfig` 
 Alternatively, you can provide the workspace-relative path to the .properties file where your test configuration is defined:
 
 ```yaml
-- name: Run dotTEST analyzer
-  uses: parasoft/run-dottest-analyzer@1.0.0
+- name: Run Parasoft dotTEST
+  uses: parasoft/run-dottest-action@1.1.0
   with:
     testConfig: '.\.dottest\MyTestConfig.properties'
 ```
 
 #### Defining the Scope for Analysis
-By default, the `Run dotTEST`action analyzes all solutions in your repository. To modify the default scope for analysis, you can configure the `solution` parameter to provide the path to the solution you want to analyze. This parameter is particularly useful when your workflow has a complex structure and includes several solution files.
+By default, the `Run Parasoft dotTEST`action analyzes all solutions in your repository. To modify the default scope for analysis, you can configure dotTEST with one of the available scope parameters to analyze selected solutions, projects, or source files.
+In the following example, the scope of analysis is narrowed down to the solutions in the` src` directory.
 
 ```yaml
-- name: Run dotTEST analyzer
-  uses: parasoft/run-dottest-analyzer@1.0.0
+- name: Run Parasoft dotTEST
+  uses: parasoft/run-dottest-action@1.1.0
   with:
     solution: '.\src\*.sln'
 ```
@@ -155,18 +155,19 @@ In addition, the `project` and `website` parameters allow you to specify the pat
 Regular configuration of dotTEST allows you to specify certain parameters more than once to configure multiple values. However, in GitHub actions, one parameter can be specified only once per action. Instead of specifying the same parameter multiple times, add it once and provide a list of semicolon-separated values:
 
 ```yaml
-- name: Run dotTEST analyzer
-  uses: parasoft/run-dottest-analyzer@1.0.0
+- name: Run Parasoft dotTEST
+  uses: parasoft/run-dottest-action@1.1.0
   with:
     solution: '.\src1\MySln1.sln;
       .\src2\MySln2.sln'
 ```
 
 ### Generating SARIF Reports with dotTEST 2020.2 or Earlier
-Generating reports in the SARIF format is available in dotTEST since version 2021.1. If you are using an earlier dotTEST version, you need to customize the `Run dotTEST` action to enable generating SARIF reports:
+Generating reports in the SARIF format is available in dotTEST since version 2021.1. If you are using an earlier dotTEST version, you need to customize the `Run Parasoft dotTEST` action to enable generating SARIF reports:
+
 ```yaml
-- name: Run dotTEST
-  uses: parasoft/run-dottest-action@1.0.0
+- name: Run Parasoft dotTEST
+  uses: parasoft/run-dottest-action@1.1.0
   with:
     sarifMode: 'legacy'
 ```

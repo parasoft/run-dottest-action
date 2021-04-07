@@ -1,4 +1,4 @@
-name: dotTEST Analyzer
+name: Run Parasoft dotTEST
 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
@@ -12,8 +12,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "run-dottest-analyzer"
-  run-dottest-analyzer:
+  # This workflow contains a single job called "run-parasoft-dottest"
+  run-parasoft-dottest:
     # Display name of the job
     name: Analyze workspace with dotTEST
     # The type of runner that the job will run on
@@ -27,12 +27,12 @@ jobs:
       uses: actions/checkout@v2
 
     # ---------------------------------------------------------------
-    # Run Parasoft dotTEST Analysis and generate .sarif report
-    - name: Run dotTEST analyzer
+    # Run Parasoft dotTEST analysis and generate .sarif report
+    - name: Run Parasoft dotTEST
       id: dottest
       # You you can reference a specific commit or version:
-      # uses: tobyash86/run-dottest-analyzer@1bc4be095189f455793afdb10b47127e06ae25ff
-      uses: parasoft/run-dottest-analyzer@1.0.0
+      # uses: parasoft/run-parasoft-dottest@1bc4be095189f455793afdb10b47127e06ae25ff
+      uses: parasoft/run-parasoft-dottest@1.1.0
       with:
         # Path to the working directory.
         workingDir: # optional, default is ${{ github.workspace }}
@@ -45,7 +45,7 @@ jobs:
         # Full path to the website directory to be analyzed when no solution is provided.
         website: # optional
         # URL of the test configuration to be used for analysis.
-        config: # optional, default is builtin://Recommended .NET Core Rules
+        testConfig: # optional, default is builtin://Recommended .NET Core Rules
         # Solution-relative path to a project in a solution, a directory of files in a project, or a file.
         resource: # optional
         # File system paths to files to include in analysis. Supports ANT-style wildcards. If not specified, all files are analyzed.

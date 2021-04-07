@@ -78,8 +78,8 @@ inputs:
   sarifMode:
     description: |-
       'Mode for GitHub report (SAFIF) generation. You can use:
-          # - "legacy" - for dotTEST 2020.2 or older (default)
-          # - "builtin" - for dotTEST 2021.1 or newer'
+          # - "legacy" - for dotTEST 2020.2 or older
+          # - "builtin" - for dotTEST 2021.1 or newer (default)
     required: false
     default: 'builtin'
 outputs:

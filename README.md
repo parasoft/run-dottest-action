@@ -122,13 +122,13 @@ If `dottestcli` executable is not on `PATH`, you can configure the path to the i
 
 #### Configuring a dotTEST Test Configuration
 Code analysis with dotTEST is performed by using a test configuration - a set of static analysis rules that enforce best coding practices. Parasoft dotTEST ships with a wide range of [build-in test configurations](https://docs.parasoft.com/display/DOTTEST20202/Built-in+Test+Configurations).
-To specify a test configuration directly in your workflow, add the `config` parameter to the `Run dotTEST` action and specify the URL of the test configuration you want to use:
+To specify a test configuration directly in your workflow, add the `testConfig` parameter to the `Run dotTEST` action and specify the URL of the test configuration you want to use:
 
 ```yaml
 - name: Run dotTEST analyzer
   uses: parasoft/run-dottest-analyzer@1.0.0
   with:
-    config: 'builtin://OWASP Top 10-2017'
+    testConfig: 'builtin://OWASP Top 10-2017'
 ```
 
 Alternatively, you can provide the workspace-relative path to the .properties file where your test configuration is defined:
@@ -137,7 +137,7 @@ Alternatively, you can provide the workspace-relative path to the .properties fi
 - name: Run dotTEST analyzer
   uses: parasoft/run-dottest-analyzer@1.0.0
   with:
-    config: '.\.dottest\MyTestConfig.properties'
+    testConfig: '.\.dottest\MyTestConfig.properties'
 ```
 
 #### Defining the Scope for Analysis
@@ -176,7 +176,7 @@ Generating reports in the SARIF format is available in dotTEST since version 202
 The following inputs are available for this action:
 | Input | Description |
 | --- | --- |
-| `config` | Specifies the URL of the test configuration to be used for analysis. The default is `builtin://Recommended .NET Core Rules`.|
+| `testConfig` | Specifies the URL of the test configuration to be used for analysis. The default is `builtin://Recommended .NET Core Rules`.|
 | `exclude` | Specifies the file system paths to files to exclude from analysis. Supports ANT-style wildcards.|
 | `fail` | Fails the command with exit code 2 if any findings are reported.|
 | `installDir` | Specifies the path to the dotTEST installation directory, which contains dottestcli.exe.|

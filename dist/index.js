@@ -245,7 +245,7 @@ async function run() {
     try {
         // #1 Fill options object
         const options = {
-            config: core.getInput("config", { required: false }),
+            config: core.getInput("testConfig", { required: false }),
             exclude: core.getInput("exclude", { required: false }),
             fail: 'true' == ((_a = core.getInput("fail", { required: false })) === null || _a === void 0 ? void 0 : _a.toLowerCase()),
             include: core.getInput("include", { required: false }),

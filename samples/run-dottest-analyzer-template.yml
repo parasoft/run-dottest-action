@@ -45,7 +45,7 @@ jobs:
         # Full path to the website directory to be analyzed when no solution is provided.
         website: # optional
         # URL of the test configuration to be used for analysis.
-        config: # optional, default is builtin://Recommended .NET Core Rules
+        testConfig: # optional, default is builtin://Recommended .NET Core Rules
         # Solution-relative path to a project in a solution, a directory of files in a project, or a file.
         resource: # optional
         # File system paths to files to include in analysis. Supports ANT-style wildcards. If not specified, all files are analyzed.

@@ -81,7 +81,7 @@ inputs:
           # - "legacy" - for dotTEST 2020.2 or older (default)
           # - "builtin" - for dotTEST 2021.1 or newer'
     required: false
-    default: 'legacy'
+    default: 'builtin'
 outputs:
   report:
     description: 'Path to the report.sarif file (or null if it does not exist).'

@@ -267,7 +267,7 @@ async function run() {
             testTagFilter: core.getInput("testTagFilter", { required: false }),
             website: core.getInput("website", { required: false }),
             workingDir: core.getInput("workingDir", { required: false }),
-            sarifMode: SarifMode_1.SarifMode[core.getInput("sarifMode", { required: false })],
+            sarifMode: SarifMode_1.SarifMode[capitalize(core.getInput("sarifMode", { required: false }))],
         };
         // #2 pass options to logic entry point
         const run = new runner.AnalysisRunner();
@@ -306,6 +306,13 @@ async function run() {
     }
 }
 exports.run = run;
+function capitalize(s) {
+    if (s == undefined || s.length == 0)
+        return '';
+    if (s.length == 1)
+        return s.charAt(0).toUpperCase();
+    return s.charAt(0).toUpperCase() + s.slice(1);
+}
 if (require.main === require.cache[eval('__filename')]) {
     run();
 }

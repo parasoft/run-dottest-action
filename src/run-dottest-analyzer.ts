@@ -35,7 +35,7 @@ export async function run() {
       testTagFilter: core.getInput("testTagFilter", { required: false }),
       website: core.getInput("website", { required: false }),
       workingDir: core.getInput("workingDir", { required: false }),
-      sarifMode: SarifMode[core.getInput("sarifMode", { required: false })],
+      sarifMode: SarifMode[capitalize(core.getInput("sarifMode", { required: false }))],
     };
 
     // #2 pass options to logic entry point
@@ -85,6 +85,13 @@ export async function run() {
     core.error(error);
     core.setFailed(error.message);
   }
+}
+
+function capitalize(s: string) : string 
+{
+  if (s == undefined || s.length == 0) return '';
+  if (s.length == 1) return s.charAt(0).toUpperCase();
+  return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 if (require.main === module) {

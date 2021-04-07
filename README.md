@@ -121,7 +121,7 @@ If `dottestcli` executable is not on `PATH`, you can configure the path to the i
 
 #### Configuring a dotTEST Test Configuration
 Code analysis with dotTEST is performed by using a test configuration - a set of static analysis rules that enforce best coding practices. Parasoft dotTEST ships with a wide range of [build-in test configurations](https://docs.parasoft.com/display/DOTTEST20202/Built-in+Test+Configurations).
-To specify a test configuration directly in your workflow, add the `testConfig` parameter to the `Run ParasoftdotTEST` action and specify the URL of the test configuration you want to use:
+To specify a test configuration directly in your workflow, add the `testConfig` parameter to the `Run Parasoft dotTEST` action and specify the URL of the test configuration you want to use:
 
 ```yaml
 - name: Run Parasoft dotTEST
@@ -141,7 +141,7 @@ Alternatively, you can provide the workspace-relative path to the .properties fi
 
 #### Defining the Scope for Analysis
 By default, the `Run Parasoft dotTEST`action analyzes all solutions in your repository. To modify the default scope for analysis, you can configure dotTEST with one of the available scope parameters to analyze selected solutions, projects, or source files.
-In the following example, the scope of analysis is narrowed down to the solutions in the` src` directory.
+In the following example, the scope of analysis is narrowed down to the solutions in the `src` directory.
 
 ```yaml
 - name: Run Parasoft dotTEST

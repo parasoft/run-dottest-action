@@ -140,7 +140,7 @@ Alternatively, you can provide the workspace-relative path to the .properties fi
 ```
 
 #### Defining the Scope for Analysis
-By default, the `Run Parasoft dotTEST`action analyzes all solutions in your repository. To modify the default scope for analysis, you can configure dotTEST with one of the available scope parameters to analyze selected solutions, projects, or source files.
+By default, the `Run Parasoft dotTEST` action analyzes all solutions in your repository. To modify the default scope for analysis, you can configure dotTEST with one of the available scope parameters to analyze selected solutions, projects, or source files.
 In the following example, the scope of analysis is narrowed down to the solutions in the `src` directory.
 
 ```yaml

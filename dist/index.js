@@ -257,7 +257,7 @@ async function run() {
             property: core.getInput("property", { required: false }),
             publish: 'true' == ((_c = core.getInput("publish", { required: false })) === null || _c === void 0 ? void 0 : _c.toLowerCase()),
             reference: core.getInput("reference", { required: false }),
-            report: core.getInput("report", { required: false }),
+            report: core.getInput("reportDir", { required: false }),
             resource: core.getInput("resource", { required: false }),
             settings: core.getInput("settings", { required: false }),
             showsettings: 'true' == ((_d = core.getInput("showsettings", { required: false })) === null || _d === void 0 ? void 0 : _d.toLowerCase()),

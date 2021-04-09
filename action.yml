@@ -38,7 +38,7 @@ inputs:
   reference:
     description: 'Path to additional assemblies required to resolve dependencies. Specify a semicolon-separated list of paths to provide many references. Supports ANT-style wildcards.'
     required: false
-  report:
+  reportDir:
     description: 'Path to the directory where the report will be created.'
     required: false
     default: '${{ github.workspace }}/.dottest/report/${{ github.run_number }}'

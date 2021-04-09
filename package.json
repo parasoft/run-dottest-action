@@ -1,8 +1,8 @@
 {
   "name": "run-parasoft-dottest",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
-  "description": "A GitHub Action for running Parasoft dotTEST analysis",
+  "description": "Run code analysis with Parasoft dotTEST and review results",
   "main": "lib/run-dottest-analyzer.js",
   "scripts": {
     "compile": "npm run copyArtifacts && tsc -p ./ && ncc build",

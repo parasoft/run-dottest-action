@@ -25,7 +25,7 @@ export async function run() {
       property: core.getInput("property", { required: false }),
       publish: 'true' == core.getInput("publish", { required: false })?.toLowerCase(),
       reference: core.getInput("reference", { required: false }),
-      report: core.getInput("report", { required: false }),
+      report: core.getInput("reportDir", { required: false }),
       resource: core.getInput("resource", { required: false }),
       settings: core.getInput("settings", { required: false }),
       showsettings: 'true' == core.getInput("showsettings", { required: false })?.toLowerCase(),

@@ -1,19 +1,24 @@
-name: Run Parasoft dotTEST
+# This workflow runs Parasoft dotTEST with GitHub's code scanning feature
+# Parasoft dotTEST is SAST tool which provides thorough security analysis for various security standards
+# Visit https://github.com/parasoft/run-dottest-action for help
+name: Parasoft dotTEST Code Scan
 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [ $default-branch, $protected-branches ]
   pull_request:
-    branches: [ master ]
+    # The branches below must be a subset of the branches above
+    branches: [ $default-branch ]
+  schedule:
+    - cron: $cron-weekly
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "run-parasoft-dottest"
-  run-parasoft-dottest:
+  # This workflow contains a single job called "run-dottest-analyzer"
+  run-dottest-analyzer:
     # Display name of the job
     name: Analyze workspace with dotTEST
     # The type of runner that the job will run on
@@ -22,66 +27,64 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
-    # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it
+    # Checks out your repository, so that your job can access it
     - name: Checkout code
       uses: actions/checkout@v2
 
     # ---------------------------------------------------------------
-    # Run Parasoft dotTEST analysis and generate .sarif report
+    # Run Parasoft dotTEST Analysis and generate .sarif report
     - name: Run Parasoft dotTEST
       id: dottest
-      # You you can reference a specific commit or version:
-      # uses: parasoft/run-parasoft-dottest@1bc4be095189f455793afdb10b47127e06ae25ff
-      uses: parasoft/run-parasoft-dottest@1.1.0
+      uses: parasoft/run-dottest-action@1.1.1
       with:
         # Path to the working directory.
-        workingDir: # optional, default is ${{ github.workspace }}
+        #workingDir: # optional, default is ${{ github.workspace }}
         # Path to the dotTEST installation directory, which contains dottestcli.exe. If not specified, dottestcli.exe will be searched for on PATH.
-        installDir: # optional
+        #installDir: # optional
         # Path to the solution to be analyzed. Specify a semicolon-separated list of paths to analyze many solutions. Supports ANT-style wildcards.
-        solution: # optional, default is .\*.sln
+        #solution: # optional, default is .\*.sln
         # Path to the project to be analyzed when no solution is provided. Specify a semicolon-separated list of paths to analyze many projects. Supports ANT-style wildcards.
-        project: # optional
+        #project: # optional
         # Full path to the website directory to be analyzed when no solution is provided.
-        website: # optional
+        #website: # optional
         # URL of the test configuration to be used for analysis.
-        testConfig: # optional, default is builtin://Recommended .NET Core Rules
+        #testConfig: # optional, default is builtin://Recommended .NET Core Rules
         # Solution-relative path to a project in a solution, a directory of files in a project, or a file.
-        resource: # optional
+        #resource: # optional
         # File system paths to files to include in analysis. Supports ANT-style wildcards. If not specified, all files are analyzed.
-        include: # optional
+        #include: # optional
         # File system paths to files to exclude from analysis. Supports ANT-style wildcards.
-        exclude: # optional
+        #exclude: # optional
         # Path to additional assemblies required to resolve dependencies. Specify a semicolon-separated list of paths to provide many references. Supports ANT-style wildcards.
-        reference: # optional
+        #reference: # optional
         # Path to the directory where the report will be created.
-        reportDir: # optional, default is ${{ github.workspace }}/.dottest/report/${{ github.run_number }}
+        #reportDir: # optional, default is ${{ github.workspace }}/.dottest/report/${{ github.run_number }}
         # Publishes report to DTP.
-        publish: # optional
+        #publish: # optional
         # Path to a settings file.
-        settings: # optional
+        #settings: # optional
         # A single configuration setting in the "key=value" format.
-        property: # optional
+        #property: # optional
         # Disables the build of the tested solutions or projects.
-        nobuild: # optional
+        #nobuild: # optional
         # Run tests that are tagged with specific issue tracking types/IDs.
-        testTagFilter: # optional
+        #testTagFilter: # optional
         # Solution configuration, e.g. "Debug".
-        solutionConfig: # optional
+        #solutionConfig: # optional
         # Project configuration, e.g. "Debug".
-        projectConfig: # optional
+        #projectConfig: # optional
         # Target platform of the solution configuration (e.g."Any CPU") or project configuration (e.g. "AnyCPU").
-        targetPlatform: # optional
+        #targetPlatform: # optional
         # Path to the location where console output is saved.
-        out: # optional
+        #out: # optional
         # Fails the command with exit code 2 or 4 if any findings are reported. It is recommended to use it with continue-on-error: true.
-        fail: # optional
+        #fail: # optional
         # Lists all settings that are currently used.
-        showsettings: # optional
+        #showsettings: # optional
         # 'Mode for GitHub report (SAFIF) generation. You can use:
         # - "legacy" - for dotTEST 2020.2 or older
         # - "builtin" - for dotTEST 2021.1 or newer (default)
-        sarifMode: # optional, default is builtin
+        #sarifMode: # optional, default is builtin
 
     # ---------------------------------------------------------------
     # Archive reports from analysis as job artifacts.

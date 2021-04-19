@@ -191,7 +191,7 @@ The following inputs are available for this action:
 | `reference` | Specifies the path to additional assemblies required to resolve dependencies of the analyzed projects. Supports ANT-style wildcards.|
 | `reportDir` | Specifies the path to the directory where the report will be created. The default is `${{ github.workspace }}/.dottest/report/${{ github.run_number }}`.| 
 | `resource` | Specifies a solution-relative path to a project in a solution, a directory of files in a project, or a file.|
-| `sarifMode` | Specifies the mode for GitHub report (SAFIF) generation. You can configure the `legacy` mode for dotTEST 2020.2 or older (default) or the `builtin` mode for dotTEST 2021.1 or newer'.|
+| `sarifMode` | Specifies the mode for GitHub report (SAFIF) generation. You can configure the `builtin` mode for dotTEST 2021.1 or newer' (default) or the `legacy` mode for dotTEST 2020.2 or older.|
 | `settings` | Specifies the path to a settings file.| 
 | `showsettings` | List all settings that are currently used.|
 | `targetPlatform` | Specifies the target platform of the solution configuration (for example, `Any CPU`) or project configuration (for example, `AnyCPU`).|

@@ -38,7 +38,7 @@ jobs:
     # Runs code analysis with dotTEST and generates a .sarif report.
     - name: Run Parasoft dotTEST
       id: dottest
-      uses: parasoft/run-dottest-action@1.2.1
+      uses: parasoft/run-dottest-action@1.2.2
       with:
         # Path to the working directory.
         #workingDir: # optional, default is ${{ github.workspace }}

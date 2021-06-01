@@ -90,12 +90,14 @@ To upload reports in other formats, modify your workflow by adding  the `upload-
 # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
 - name: Upload results (SARIF)
   uses: github/codeql-action/upload-sarif@v1
+  if: always()
   with:
     sarif_file: ${{ steps.dottest.outputs.report }}
 
 # Uploads an archive that includes all report files (.xml, .html, .sarif).
 - name: Archive reports
   uses: actions/upload-artifact@v2
+  if: always()
   with:
     name: Report files
     path: ${{ steps.dottest.outputs.reportDir }}/*.*

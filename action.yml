@@ -27,13 +27,13 @@ inputs:
     required: false
     default: 'builtin://Recommended .NET Core Rules'
   resource:
-    description: 'Solution-relative path to a project in a solution, a directory of files in a project, or a file.'
+    description: 'Solution-relative path to a project in a solution, a directory of files in a project, or a file. Use semicolon-separated list to specify many.'
     required: false
   include:
-    description: 'File system paths to files to include in analysis. Supports ANT-style wildcards. If not specified, all files are analyzed.'
+    description: 'File system paths to files to include in analysis. Supports ANT-style wildcards. If not specified, all files are analyzed. Use semicolon-separated list to specify many.'
     required: false
   exclude:
-    description: 'File system paths to files to exclude from analysis. Supports ANT-style wildcards.'
+    description: 'File system paths to files to exclude from analysis. Supports ANT-style wildcards. Use semicolon-separated list to specify many.'
     required: false
   reference:
     description: 'Path to additional assemblies required to resolve dependencies. Specify a semicolon-separated list of paths to provide many references. Supports ANT-style wildcards.'
@@ -46,10 +46,10 @@ inputs:
     description: 'Publishes report to DTP.'
     required: false
   settings:
-    description: 'Path to a settings file.'
+    description: 'Path to a settings file. Use semicolon-separated list to specify many.'
     required: false
   property:
-    description: 'A single configuration setting in the "key=value" format.'
+    description: 'A single configuration setting in the "key=value" format. Use semicolon-separated list to specify many.'
     required: false
   nobuild:
     description: 'Disables the build of the tested solutions or projects.'

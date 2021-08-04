@@ -47,7 +47,6 @@ suite('vscode-dottest/extension', function() {
 			property: 'prop=val',
 			publish: true,
 			reference: 'F:\\refs\\CoreReference.dll',
-			SarifMode: SarifMode.Legacy,
 			resource: '/prj2/Commons',
 			settings: 'F:\\repos\\sln1\\settings\\default.properties',
 			showsettings: true,
@@ -60,5 +59,21 @@ suite('vscode-dottest/extension', function() {
 		const expected = '"' + pt.normalize("F:/dottest/dottestcli.exe") + '" -config "builtin://BTICFG" -project "F:\\repos\\sln1\\prj1.csproj" -project "F:\\repos\\sln2\\prj2.vbproj" -resource "/prj2/Commons" -include "F:\\repos\\**\\*.cs" -exclude "F:\\repos\\**\\*test*" -projectConfig "Debug" -targetPlatform "AnyCPU" -property "report.format=sarif" -settings "F:\\repos\\sln1\\settings\\default.properties" -property "prop=val" -nobuild -fail -publish -showsettings -report "F:\\rep" -out "F:\\out\\o.txt" -reference "F:\\refs\\CoreReference.dll" ';
 		assert.strictEqual(cmd, expected);
 	});
+
+	test('Generate command line for conflicting schemas for solution default value', async function() {
+        const options: RunOptions = {
+			workingDir: 'F:\\repos',
+			solution: '.\\*.sln',
+			installDir: pt.normalize('F:/dottest'),
+			project: 'F:\\repos\\sln1\\prj1.csproj;F:\\repos\\sln2\\prj2.vbproj',
+			sarifMode: SarifMode.Builtin
+		} as any as RunOptions;
+
+		const run = new runner.AnalysisRunner();
+		const cmd = await run.createCommandLine(options);
+
+		const expected = '"' + pt.normalize("F:/dottest/dottestcli.exe") + '" -project "F:\\repos\\sln1\\prj1.csproj" -project "F:\\repos\\sln2\\prj2.vbproj" -property "report.format=sarif" ';
+		assert.strictEqual(cmd, expected);
+    });
 
 });

@@ -36,6 +36,8 @@ export class AnalysisRunner
     private SPACE = ' '; 
     private SEMICOLON = ';'; 
 
+    private DEFAULT_SOLUTION_VALUE = '.\\*.sln'
+
     async createCommandLine(options: RunOptions) : Promise<string> {
 
         let cmd = '';
@@ -60,7 +62,7 @@ export class AnalysisRunner
 
         // # Scope arguments
 
-        if(options.solution) {
+        if(options.solution && (!options.project && !options.website || options.solution != this.DEFAULT_SOLUTION_VALUE)) {
             cmd += this.createQuotedArgument('-solution', options.solution);
         }
         if(options.project) {

@@ -21,6 +21,7 @@ class AnalysisRunner {
         this.QUOTE = '"';
         this.SPACE = ' ';
         this.SEMICOLON = ';';
+        this.DEFAULT_SOLUTION_VALUE = '.\\*.sln';
         this.runtimeInfo = undefined;
     }
     async createCommandLine(options) {
@@ -40,7 +41,7 @@ class AnalysisRunner {
             cmd += this.createQuotedArgument('-config', options.config);
         }
         // # Scope arguments
-        if (options.solution) {
+        if (options.solution && (!options.project && !options.website || options.solution != this.DEFAULT_SOLUTION_VALUE)) {
             cmd += this.createQuotedArgument('-solution', options.solution);
         }
         if (options.project) {

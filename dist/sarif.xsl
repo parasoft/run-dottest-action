@@ -40,7 +40,9 @@
     
     <xsl:template name="rules_category">
         <xsl:param name="parentTags"/>
-        <xsl:variable name="tags" saxon:assignable="yes" select="concat($qt,@desc,$qt)"/>
+        <xsl:variable name="category_desc"><xsl:call-template name="escape_illegal_chars"><xsl:with-param name="text" select="@desc" /></xsl:call-template></xsl:variable>
+        <xsl:variable name="tags" saxon:assignable="yes" select="concat($qt,$category_desc,$qt)"/>
+
         <xsl:if test="string-length($parentTags) > 0">
             <saxon:assign name="tags" select="concat($parentTags,', ',$tags)"/>
         </xsl:if>

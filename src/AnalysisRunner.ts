@@ -11,7 +11,7 @@ import { messages } from './Messages'
 export interface RunDetails
 {
 	status : "finished" | "cancelled",
-	exitCode : number,
+	exitCode : number | null,
 	durationMs : number,
 }
 
@@ -201,7 +201,7 @@ export class AnalysisRunner
                     status : this.runtimeInfo?.wasCancelled ? "cancelled" : "finished",
                     exitCode : code,
                 };
-                core.info("EXIT CODE: " + code.toString());
+                core.info("EXIT CODE: " + code?.toString());
                 resolve(result);
             });
             cliProcess.on("error", (err) => {

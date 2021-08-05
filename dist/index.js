@@ -1,4 +1,3 @@
-module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
@@ -159,7 +158,7 @@ class AnalysisRunner {
                     status: ((_a = this.runtimeInfo) === null || _a === void 0 ? void 0 : _a.wasCancelled) ? "cancelled" : "finished",
                     exitCode: code,
                 };
-                core.info("EXIT CODE: " + code.toString());
+                core.info("EXIT CODE: " + (code === null || code === void 0 ? void 0 : code.toString()));
                 resolve(result);
             });
             cliProcess.on("error", (err) => {
@@ -229,110 +228,31 @@ var SarifMode;
 
 /***/ }),
 
-/***/ 303:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.run = void 0;
-const core = __nccwpck_require__(186);
-const fs = __nccwpck_require__(747);
-const path = __nccwpck_require__(622);
-const runner = __nccwpck_require__(880);
-const SarifMode_1 = __nccwpck_require__(202);
-const Messages_1 = __nccwpck_require__(359);
-async function run() {
-    var _a, _b, _c, _d;
-    try {
-        // #1 Fill options object
-        const options = {
-            config: core.getInput("testConfig", { required: false }),
-            exclude: core.getInput("exclude", { required: false }),
-            fail: 'true' == ((_a = core.getInput("fail", { required: false })) === null || _a === void 0 ? void 0 : _a.toLowerCase()),
-            include: core.getInput("include", { required: false }),
-            installDir: core.getInput("installDir", { required: false }),
-            nobuild: 'true' == ((_b = core.getInput("nobuild", { required: false })) === null || _b === void 0 ? void 0 : _b.toLowerCase()),
-            out: core.getInput("out", { required: false }),
-            project: core.getInput("project", { required: false }),
-            projectConfig: core.getInput("projectConfig", { required: false }),
-            property: core.getInput("property", { required: false }),
-            publish: 'true' == ((_c = core.getInput("publish", { required: false })) === null || _c === void 0 ? void 0 : _c.toLowerCase()),
-            reference: core.getInput("reference", { required: false }),
-            report: core.getInput("reportDir", { required: false }),
-            resource: core.getInput("resource", { required: false }),
-            settings: core.getInput("settings", { required: false }),
-            showsettings: 'true' == ((_d = core.getInput("showsettings", { required: false })) === null || _d === void 0 ? void 0 : _d.toLowerCase()),
-            solution: core.getInput("solution", { required: false }),
-            solutionConfig: core.getInput("solutionConfig", { required: false }),
-            targetPlatform: core.getInput("targetPlatform", { required: false }),
-            testTagFilter: core.getInput("testTagFilter", { required: false }),
-            website: core.getInput("website", { required: false }),
-            workingDir: core.getInput("workingDir", { required: false }),
-            sarifMode: SarifMode_1.SarifMode[capitalize(core.getInput("sarifMode", { required: false }))],
-        };
-        // #2 pass options to logic entry point
-        const run = new runner.AnalysisRunner();
-        const cmd = await run.createCommandLine(options);
-        const outcome = await run.run(cmd, options.workingDir);
-        // #3 set output
-        if (fs.existsSync(options.report)) {
-            core.setOutput("reportDir", options.report);
-        }
-        else {
-            core.setOutput("report", null);
-        }
-        const sarifReport = path.join(options.report, 'report.sarif');
-        if (fs.existsSync(sarifReport)) {
-            core.setOutput("report", sarifReport);
-        }
-        else {
-            core.setOutput("report", null);
-        }
-        if (outcome.exitCode != 0) {
-            if (options.fail) {
-                if (outcome.exitCode == 2) {
-                    core.setFailed(Messages_1.messages.failed_run_sa);
-                }
-                if (outcome.exitCode == 4) {
-                    core.setFailed(Messages_1.messages.failed_run_ut);
-                }
-            }
-            core.setFailed(Messages_1.messages.failed_run_non_zero + outcome.exitCode);
-        }
-    }
-    catch (error) {
-        core.error(Messages_1.messages.run_failed);
-        core.error(error);
-        core.setFailed(error.message);
-    }
-}
-exports.run = run;
-function capitalize(s) {
-    if (s == undefined || s.length == 0)
-        return '';
-    if (s.length == 1)
-        return s.charAt(0).toUpperCase();
-    return s.charAt(0).toUpperCase() + s.slice(1);
-}
-if (require.main === require.cache[eval('__filename')]) {
-    run();
-}
-//# sourceMappingURL=run-dottest-analyzer.js.map
-
-/***/ }),
-
 /***/ 351:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.issue = exports.issueCommand = void 0;
 const os = __importStar(__nccwpck_require__(87));
 const utils_1 = __nccwpck_require__(278);
 /**
@@ -410,6 +330,25 @@ function escapeProperty(s) {
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -419,14 +358,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getState = exports.saveState = exports.group = exports.endGroup = exports.startGroup = exports.info = exports.warning = exports.error = exports.debug = exports.isDebug = exports.setFailed = exports.setCommandEcho = exports.setOutput = exports.getBooleanInput = exports.getMultilineInput = exports.getInput = exports.addPath = exports.setSecret = exports.exportVariable = exports.ExitCode = void 0;
 const command_1 = __nccwpck_require__(351);
 const file_command_1 = __nccwpck_require__(717);
 const utils_1 = __nccwpck_require__(278);
@@ -493,7 +426,9 @@ function addPath(inputPath) {
 }
 exports.addPath = addPath;
 /**
- * Gets the value of an input.  The value is also trimmed.
+ * Gets the value of an input.
+ * Unless trimWhitespace is set to false in InputOptions, the value is also trimmed.
+ * Returns an empty string if the value is not defined.
  *
  * @param     name     name of the input to get
  * @param     options  optional. See InputOptions.
@@ -504,9 +439,49 @@ function getInput(name, options) {
     if (options && options.required && !val) {
         throw new Error(`Input required and not supplied: ${name}`);
     }
+    if (options && options.trimWhitespace === false) {
+        return val;
+    }
     return val.trim();
 }
 exports.getInput = getInput;
+/**
+ * Gets the values of an multiline input.  Each value is also trimmed.
+ *
+ * @param     name     name of the input to get
+ * @param     options  optional. See InputOptions.
+ * @returns   string[]
+ *
+ */
+function getMultilineInput(name, options) {
+    const inputs = getInput(name, options)
+        .split('\n')
+        .filter(x => x !== '');
+    return inputs;
+}
+exports.getMultilineInput = getMultilineInput;
+/**
+ * Gets the input value of the boolean type in the YAML 1.2 "core schema" specification.
+ * Support boolean input list: `true | True | TRUE | false | False | FALSE` .
+ * The return value is also in boolean type.
+ * ref: https://yaml.org/spec/1.2/spec.html#id2804923
+ *
+ * @param     name     name of the input to get
+ * @param     options  optional. See InputOptions.
+ * @returns   boolean
+ */
+function getBooleanInput(name, options) {
+    const trueValue = ['true', 'True', 'TRUE'];
+    const falseValue = ['false', 'False', 'FALSE'];
+    const val = getInput(name, options);
+    if (trueValue.includes(val))
+        return true;
+    if (falseValue.includes(val))
+        return false;
+    throw new TypeError(`Input does not meet YAML 1.2 "Core Schema" specification: ${name}\n` +
+        `Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
+}
+exports.getBooleanInput = getBooleanInput;
 /**
  * Sets the value of an output.
  *
@@ -515,6 +490,7 @@ exports.getInput = getInput;
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function setOutput(name, value) {
+    process.stdout.write(os.EOL);
     command_1.issueCommand('set-output', { name }, value);
 }
 exports.setOutput = setOutput;
@@ -655,14 +631,27 @@ exports.getState = getState;
 
 
 // For internal use, subject to change.
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.issueCommand = void 0;
 // We use any as a valid input type
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const fs = __importStar(__nccwpck_require__(747));
@@ -692,6 +681,7 @@ exports.issueCommand = issueCommand;
 // We use any as a valid input type
 /* eslint-disable @typescript-eslint/no-explicit-any */
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.toCommandValue = void 0;
 /**
  * Sanitizes an input into a string so it can be passed into issueCommand safely
  * @param input input to sanitize into a string
@@ -713,35 +703,35 @@ exports.toCommandValue = toCommandValue;
 /***/ 129:
 /***/ ((module) => {
 
-module.exports = require("child_process");;
+module.exports = require("child_process");
 
 /***/ }),
 
 /***/ 747:
 /***/ ((module) => {
 
-module.exports = require("fs");;
+module.exports = require("fs");
 
 /***/ }),
 
 /***/ 87:
 /***/ ((module) => {
 
-module.exports = require("os");;
+module.exports = require("os");
 
 /***/ }),
 
 /***/ 622:
 /***/ ((module) => {
 
-module.exports = require("path");;
+module.exports = require("path");
 
 /***/ }),
 
 /***/ 630:
 /***/ ((module) => {
 
-module.exports = require("perf_hooks");;
+module.exports = require("perf_hooks");
 
 /***/ })
 
@@ -753,8 +743,9 @@ module.exports = require("perf_hooks");;
 /******/ 	// The require function
 /******/ 	function __nccwpck_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		if(__webpack_module_cache__[moduleId]) {
-/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -779,10 +770,101 @@ module.exports = require("perf_hooks");;
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
-/******/ 	__nccwpck_require__.ab = __dirname + "/";/************************************************************************/
-/******/ 	// module exports must be returned from runtime so entry inlining is disabled
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	return __nccwpck_require__(303);
+/******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+var exports = __webpack_exports__;
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.run = void 0;
+const core = __nccwpck_require__(186);
+const fs = __nccwpck_require__(747);
+const path = __nccwpck_require__(622);
+const runner = __nccwpck_require__(880);
+const SarifMode_1 = __nccwpck_require__(202);
+const Messages_1 = __nccwpck_require__(359);
+async function run() {
+    var _a, _b, _c, _d;
+    try {
+        // #1 Fill options object
+        const options = {
+            config: core.getInput("testConfig", { required: false }),
+            exclude: core.getInput("exclude", { required: false }),
+            fail: 'true' == ((_a = core.getInput("fail", { required: false })) === null || _a === void 0 ? void 0 : _a.toLowerCase()),
+            include: core.getInput("include", { required: false }),
+            installDir: core.getInput("installDir", { required: false }),
+            nobuild: 'true' == ((_b = core.getInput("nobuild", { required: false })) === null || _b === void 0 ? void 0 : _b.toLowerCase()),
+            out: core.getInput("out", { required: false }),
+            project: core.getInput("project", { required: false }),
+            projectConfig: core.getInput("projectConfig", { required: false }),
+            property: core.getInput("property", { required: false }),
+            publish: 'true' == ((_c = core.getInput("publish", { required: false })) === null || _c === void 0 ? void 0 : _c.toLowerCase()),
+            reference: core.getInput("reference", { required: false }),
+            report: core.getInput("reportDir", { required: false }),
+            resource: core.getInput("resource", { required: false }),
+            settings: core.getInput("settings", { required: false }),
+            showsettings: 'true' == ((_d = core.getInput("showsettings", { required: false })) === null || _d === void 0 ? void 0 : _d.toLowerCase()),
+            solution: core.getInput("solution", { required: false }),
+            solutionConfig: core.getInput("solutionConfig", { required: false }),
+            targetPlatform: core.getInput("targetPlatform", { required: false }),
+            testTagFilter: core.getInput("testTagFilter", { required: false }),
+            website: core.getInput("website", { required: false }),
+            workingDir: core.getInput("workingDir", { required: false }),
+            sarifMode: SarifMode_1.SarifMode[capitalize(core.getInput("sarifMode", { required: false }))],
+        };
+        // #2 pass options to logic entry point
+        const run = new runner.AnalysisRunner();
+        const cmd = await run.createCommandLine(options);
+        const outcome = await run.run(cmd, options.workingDir);
+        // #3 set output
+        if (fs.existsSync(options.report)) {
+            core.setOutput("reportDir", options.report);
+        }
+        else {
+            core.setOutput("report", null);
+        }
+        const sarifReport = path.join(options.report, 'report.sarif');
+        if (fs.existsSync(sarifReport)) {
+            core.setOutput("report", sarifReport);
+        }
+        else {
+            core.setOutput("report", null);
+        }
+        if (outcome.exitCode != 0) {
+            if (options.fail) {
+                if (outcome.exitCode == 2) {
+                    core.setFailed(Messages_1.messages.failed_run_sa);
+                }
+                if (outcome.exitCode == 4) {
+                    core.setFailed(Messages_1.messages.failed_run_ut);
+                }
+            }
+            core.setFailed(Messages_1.messages.failed_run_non_zero + outcome.exitCode);
+        }
+    }
+    catch (error) {
+        core.error(Messages_1.messages.run_failed);
+        core.error(error);
+        core.setFailed(error.message);
+    }
+}
+exports.run = run;
+function capitalize(s) {
+    if (s == undefined || s.length == 0)
+        return '';
+    if (s.length == 1)
+        return s.charAt(0).toUpperCase();
+    return s.charAt(0).toUpperCase() + s.slice(1);
+}
+if (require.main === require.cache[eval('__filename')]) {
+    run();
+}
+//# sourceMappingURL=run-dottest-analyzer.js.map
+})();
+
+module.exports = __webpack_exports__;
 /******/ })()
 ;

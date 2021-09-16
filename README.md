@@ -99,7 +99,7 @@ To upload reports in other formats, modify your workflow by adding  the `upload-
   uses: actions/upload-artifact@v2
   if: always()
   with:
-    name: Report files
+    name: DottestReports
     path: ${{ steps.dottest.outputs.reportDir }}/*.*
 ```
 

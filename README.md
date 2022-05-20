@@ -116,7 +116,7 @@ If `dottestcli` executable is not on `PATH`, you can configure the path to the i
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@1.1.0
+  uses: parasoft/run-dottest-action@1.2.3
   with:
     installDir: 'c:\Program Files\Parasoft\dotTEST\2021.1'
 ```
@@ -127,7 +127,7 @@ To specify a test configuration directly in your workflow, add the `testConfig` 
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@1.1.0
+  uses: parasoft/run-dottest-action@1.2.1
   with:
     testConfig: 'builtin://OWASP Top 10-2017'
 ```
@@ -136,7 +136,7 @@ Alternatively, you can provide the workspace-relative path to the .properties fi
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@1.1.0
+  uses: parasoft/run-dottest-action@1.2.3
   with:
     testConfig: '.\.dottest\MyTestConfig.properties'
 ```
@@ -147,7 +147,7 @@ In the following example, the scope of analysis is narrowed down to the solution
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@1.1.0
+  uses: parasoft/run-dottest-action@1.2.3
   with:
     solution: '.\src\*.sln'
 ```
@@ -158,7 +158,7 @@ Regular configuration of dotTEST allows you to specify certain parameters more t
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@1.1.0
+  uses: parasoft/run-dottest-action@1.2.3
   with:
     solution: '.\src1\MySln1.sln;
       .\src2\MySln2.sln'
@@ -169,7 +169,7 @@ Generating reports in the SARIF format is available in dotTEST since version 202
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@1.1.0
+  uses: parasoft/run-dottest-action@1.2.3
   with:
     sarifMode: 'legacy'
 ```

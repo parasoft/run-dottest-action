@@ -37,11 +37,11 @@ name: dotTEST Simple Workflow
 
 # Specifies the name of the GitHub events that trigger the workflow.
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch.
+  # Triggers the workflow on push or pull request events but only for the main branch.
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:

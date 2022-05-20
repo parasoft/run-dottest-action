@@ -61,7 +61,7 @@ jobs:
       # Runs code analysis with dotTEST.
       - name: Run Parasoft dotTEST
         # Specifies the action to run.
-        uses: parasoft/run-dottest-action@1.1.0
+        uses: parasoft/run-dottest-action@1.2.3
         
         # You can reference a specific commit or version:
         # uses: parasoft/run-dottest-action@1bc4be095189f455793afdb10b47127e06ae25ff
@@ -84,12 +84,12 @@ To upload reports in other formats, modify your workflow by adding  the `upload-
 # Runs Parasoft dotTEST and generates the reports.
 - name: Run Parasoft dotTEST
   id: dottest
-  uses: parasoft/run-dottest-action@1.1.0
+  uses: parasoft/run-dottest-action@1.2.3
   # ...
 
 # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
 - name: Upload results (SARIF)
-  uses: github/codeql-action/upload-sarif@v1
+  uses: github/codeql-action/upload-sarif@v2
   if: always()
   with:
     sarif_file: ${{ steps.dottest.outputs.report }}

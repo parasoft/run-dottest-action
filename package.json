@@ -32,14 +32,14 @@
     "@actions/io": "^1.1.1"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.21",
+    "@types/chai": "^4.3.4",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.4.12",
     "@types/sinon": "^10.0.2",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
     "@vercel/ncc": "^0.29.0",
-    "chai": "^4.3.4",
+    "chai": "^4.3.7",
     "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
     "eslint": "^7.32.0",

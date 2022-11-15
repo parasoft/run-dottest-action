@@ -9,7 +9,7 @@ This action enables you to run code analysis with Parasoft dotTEST and review an
 Parasoft dotTEST is a testing tool that automates software quality practices for C# and VB.NET applications. It uses a comprehensive set of analysis techniques, including pattern-based static analysis, dataflow analysis, metrics, code coverage, and unit testing to help you verify code quality and ensure compliance with industry standards, such as CWE or OWASP.
 
  - Request [a free trial](https://www.parasoft.com/products/parasoft-dottest/dottest-request-a-demo/) to receive access to Parasoft dotTEST's features and capabilities.
- - See the [user guide](https://docs.parasoft.com/display/DOTTEST20202) for information about Parasoft dotTEST's capabilities and usage.
+ - See the [user guide](https://docs.parasoft.com/display/DOTTEST20221) for information about Parasoft dotTEST's capabilities and usage.
 
 Please visit the [official Parasoft website](http://www.parasoft.com) for more information about Parasoft dotTEST and other Parasoft products.
 
@@ -56,7 +56,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
       # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       # Runs code analysis with dotTEST.
       - name: Run Parasoft dotTEST
@@ -96,7 +96,7 @@ To upload reports in other formats, modify your workflow by adding  the `upload-
 
 # Uploads an archive that includes all report files (.xml, .html, .sarif).
 - name: Archive reports
-  uses: actions/upload-artifact@v2
+  uses: actions/upload-artifact@v3
   if: always()
   with:
     name: DottestReports
@@ -106,7 +106,7 @@ To upload reports in other formats, modify your workflow by adding  the `upload-
 ## Configuring Analysis with dotTEST
 You can configure analysis with Parasoft dotTEST in one of the following ways:
  - By customizing the `Run Parasoft dotTEST` action directly in your GitHub workflow. See [Action Parameters](#action-parameters) for a complete list of available parameters.
- - By configuring options in Parasoft dotTEST tool. We recommend creating a `dottestcli.properties` file that includes all the configuration options and adding the file to dotTEST's working directory  - typically, the root directory of your repository. This allows dotTEST to automatically read all the configuration options from that file. See [Parasoft dotTEST User Guide](https://docs.parasoft.com/display/DOTTEST20202) for details.
+ - By configuring options in Parasoft dotTEST tool. We recommend creating a `dottestcli.properties` file that includes all the configuration options and adding the file to dotTEST's working directory  - typically, the root directory of your repository. This allows dotTEST to automatically read all the configuration options from that file. See [Parasoft dotTEST User Guide](https://docs.parasoft.com/display/DOTTEST20221) for details.
  
 ### Examples
 This section includes practical examples of how the dotTEST action can be customized directly in the YAML file of your workflow. 
@@ -122,7 +122,7 @@ If `dottestcli` executable is not on `PATH`, you can configure the path to the i
 ```
 
 #### Configuring a dotTEST Test Configuration
-Code analysis with dotTEST is performed by using a test configuration - a set of static analysis rules that enforce best coding practices. Parasoft dotTEST ships with a wide range of [build-in test configurations](https://docs.parasoft.com/display/DOTTEST20202/Built-in+Test+Configurations).
+Code analysis with dotTEST is performed by using a test configuration - a set of static analysis rules that enforce best coding practices. Parasoft dotTEST ships with a wide range of [built-in test configurations](https://docs.parasoft.com/display/DOTTEST20221/Built-in+Test+Configurations).
 To specify a test configuration directly in your workflow, add the `testConfig` parameter to the `Run Parasoft dotTEST` action and specify the URL of the test configuration you want to use:
 
 ```yaml
@@ -163,6 +163,26 @@ Regular configuration of dotTEST allows you to specify certain parameters more t
     solution: '.\src1\MySln1.sln;
       .\src2\MySln2.sln'
 ```
+### Limiting the Scope of Analysis
+
+If you want to limit the scope of analysis to only see the violations from changed files on the current working branch in comparison to a reference branch (the “origin/main” branch), configure the following:
+1. Set the `fetch-depth:` parameter to 0 to fetch all history for all branches and tags. 
+ ```yaml
+ - name: Checkout repository
+   uses: actions/checkout@v3
+   with: 
+     fetch-depth: 0
+ ```
+See the [Checkout action](https://github.com/marketplace/actions/checkout) description for details.
+
+1. Configure source control settings. See [Connecting to Source Control](https://docs.parasoft.com/display/DOTTEST20221/Connecting+to+Source+Control) for details.
+1. Configure the following settings for dotTEST to limit the scope of analysis to files that are different between the current working branch and the reference branch:
+
+ ```yaml
+ scope.scontrol.files.filter.mode=branch
+ scope.scontrol.ref.branch=origin/main
+ ```
+ See the [scope.scontrol.files.filter.mode](https://docs.parasoft.com/display/DOTTEST20221/Scope+and+Authorship+Settings#ScopeandAuthorshipSettings-scope.files.time.filter.modescope.scontrol.files.filter.mode) parameter description for details.
 
 ### Generating SARIF Reports with dotTEST 2020.2 or Earlier
 Generating reports in the SARIF format is available in dotTEST since version 2021.1. If you are using an earlier dotTEST version, you need to customize the `Run Parasoft dotTEST` action to enable generating SARIF reports:
@@ -173,6 +193,27 @@ Generating reports in the SARIF format is available in dotTEST since version 202
   with:
     sarifMode: 'legacy'
 ```
+
+#### Baselining Static Analysis Results in Pull Requests
+In GitHub, when a pull request is created, static analysis results generated for the branch to be merged are compared with the results generated for the integration branch. As a result, only new violations are presented, allowing developers to focus on the relevant problems for their code changes. 
+For this baselining to succeed, make sure your static analysis workflow triggers for pull requests. For example:
+```yaml
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch.
+  pull_request:
+    branches: [ main ]
+```
+
+##### Defining the Branch Protection Rule
+You can define a branch protection rule for your integration branch that will block pull requests due to new violations or errors. To configure this:
+1. In the GitHub repository GUI, go to **Settings>Branches**.
+
+1. Make sure your default integration branch is configured. If needed, select the appropriate branch in the **Default branch** section.
+1. Define the branch protection rule. In the **Branch protection rule** section click **Add rule**. Enable the **Require status checks to pass before merging** option and specify which steps in the pipeline should block the merge. Type the status check name in the search field to select it (only the status checks run during the last week are listed).
+ - You can specify that the merge will be blocked if any violations are found as a result of the analysis by selecting the appropriate GitHub Code Scanning tool. If the GitHub Code Scanning tool is not available, you need to run a pull request for the integration branch first.
+ - You can specify that the merge will be blocked if any defined job is not completed because of errors in its configuration by selecting the job build name. If no jobs are available, you need to run a workflow from the integration branch first. For example, when you execute the default dotTEST pipeline, the 'Analyze project with dotTEST' job will be available and can be used as a status check.
+ 
+  If a pull request is blocked due to failed checks, the administrator can still manually perform the merge using the **Merge without waiting for requirements to be met** option.
 
 ## Action Parameters
 
@@ -202,4 +243,3 @@ The following inputs are available for this action:
 | `solutionConfig` | Specifies the solution configuration (for example, `Debug`).|
 | `website` | Specifies the full path to the website directory to be analyzed when the solution is not provided.|
 | `workingDir` | Specifies the path to the working directory. The default is `${{ github.workspace }}`.|
-

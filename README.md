@@ -194,7 +194,7 @@ Generating reports in the SARIF format is available in dotTEST since version 202
     sarifMode: 'legacy'
 ```
 
-#### Baselining Static Analysis Results in Pull Requests
+### Baselining Static Analysis Results in Pull Requests
 In GitHub, when a pull request is created, static analysis results generated for the branch to be merged are compared with the results generated for the integration branch. As a result, only new violations are presented, allowing developers to focus on the relevant problems for their code changes. 
 For this baselining to succeed, make sure your static analysis workflow triggers for pull requests. For example:
 ```yaml
@@ -204,7 +204,7 @@ on:
     branches: [ main ]
 ```
 
-##### Defining the Branch Protection Rule
+#### Defining the Branch Protection Rule
 You can define a branch protection rule for your integration branch that will block pull requests due to new violations or errors. To configure this:
 1. In the GitHub repository GUI, go to **Settings>Branches**.
 

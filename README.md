@@ -207,7 +207,6 @@ on:
 #### Defining the Branch Protection Rule
 You can define a branch protection rule for your integration branch that will block pull requests due to new violations or errors. To configure this:
 1. In the GitHub repository GUI, go to **Settings>Branches**.
-
 1. Make sure your default integration branch is configured. If needed, select the appropriate branch in the **Default branch** section.
 1. Define the branch protection rule. In the **Branch protection rule** section click **Add rule**. Enable the **Require status checks to pass before merging** option and specify which steps in the pipeline should block the merge. Type the status check name in the search field to select it (only the status checks run during the last week are listed).
  - You can specify that the merge will be blocked if any violations are found as a result of the analysis by selecting the appropriate GitHub Code Scanning tool. If the GitHub Code Scanning tool is not available, you need to run a pull request for the integration branch first.

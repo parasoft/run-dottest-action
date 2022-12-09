@@ -30,6 +30,29 @@ suite('vscode-dottest/extension', function() {
 		assert.strictEqual(cmd, expected);
 	});
 
+	test('Test TIA command line creation', async function() {
+		const options: RunOptions = {
+			config: 'builtin://BTICFG',
+			fail: true,
+			installDir: pt.normalize('F:/dottest'),
+			out: 'F:/out/o.txt',
+			report: 'F:/rep',
+			sarifMode: SarifMode.Builtin,
+			solution: 'F:/repos/sln1/solution.sln;F:/repos/sln2/solution2.sln',
+			workingDir: 'F:/repos',
+			referenceReportFile: 'F:/baseline/report.xml',
+			referenceCoverageFile: 'F:/baseline/coverage.xml',
+		} as any as RunOptions;
+
+		const run = new runner.AnalysisRunner();
+		const cmd = await run.createCommandLine(options);
+		
+		
+
+		const expected = '"' + pt.normalize("F:/dottest/dottestcli.exe") + '" -config "builtin://BTICFG" -solution "F:/repos/sln1/solution.sln" -solution "F:/repos/sln2/solution2.sln" -property "report.format=sarif" -fail -report "F:/rep" -out "F:/out/o.txt" -referenceReportFile "F:/baseline/report.xml" -referenceCoverageFile "F:/baseline/coverage.xml" '
+		assert.strictEqual(cmd, expected);
+	});
+
 	test('Test complex project schema creation', async function() {
 		const options: RunOptions = {
 			config: 'builtin://BTICFG',

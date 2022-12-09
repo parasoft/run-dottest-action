@@ -24,6 +24,8 @@ export async function run() {
       projectConfig: core.getInput("projectConfig", { required: false }),
       property: core.getInput("property", { required: false }),
       publish: 'true' == core.getInput("publish", { required: false })?.toLowerCase(),
+      referenceReportFile: core.getInput("referenceReportFile", { required: false }),
+      referenceCoverageFile: core.getInput("referenceCoverageFile", { required: false }),
       reference: core.getInput("reference", { required: false }),
       report: core.getInput("reportDir", { required: false }),
       resource: core.getInput("resource", { required: false }),

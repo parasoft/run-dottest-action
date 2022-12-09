@@ -39,9 +39,17 @@ export interface RunOptions {
    */
   exclude: string;
   /**
+   * Path to baseline report file for Test Impact Analysis. 
+   */
+  referenceReportFile: string
+  /**
+   * Path to baseline coverage file for Test Impact Analysis. 
+   */
+   referenceCoverageFile: string
+  /**
    * Path to reference of analyzed assemblies. Specify multiple times to provide many references. Supports ANT-style wildcards.
    */
-  reference: string;
+   reference: string;
   /**
    * Path to report directory or main report file.
    */

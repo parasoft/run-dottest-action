@@ -138,6 +138,16 @@ export class AnalysisRunner
             cmd += this.createQuotedArgument('-out', options.out);
         }
 
+        // # TIA settings
+
+        if(options.referenceReportFile) {
+            cmd += this.createQuotedArgument('-referenceReportFile', options.referenceReportFile);
+        }
+
+        if(options.referenceCoverageFile) {
+            cmd += this.createQuotedArgument('-referenceCoverageFile', options.referenceCoverageFile);
+        }
+
         // # supplementary settings
         if(options.reference) {
             cmd += this.createQuotedArgument('-reference', options.reference);

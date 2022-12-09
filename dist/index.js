@@ -106,6 +106,13 @@ class AnalysisRunner {
         if (options.out) {
             cmd += this.createQuotedArgument('-out', options.out);
         }
+        // # TIA settings
+        if (options.referenceReportFile) {
+            cmd += this.createQuotedArgument('-referenceReportFile', options.referenceReportFile);
+        }
+        if (options.referenceCoverageFile) {
+            cmd += this.createQuotedArgument('-referenceCoverageFile', options.referenceCoverageFile);
+        }
         // # supplementary settings
         if (options.reference) {
             cmd += this.createQuotedArgument('-reference', options.reference);
@@ -802,6 +809,8 @@ async function run() {
             projectConfig: core.getInput("projectConfig", { required: false }),
             property: core.getInput("property", { required: false }),
             publish: 'true' == ((_c = core.getInput("publish", { required: false })) === null || _c === void 0 ? void 0 : _c.toLowerCase()),
+            referenceReportFile: core.getInput("referenceReportFile", { required: false }),
+            referenceCoverageFile: core.getInput("referenceCoverageFile", { required: false }),
             reference: core.getInput("reference", { required: false }),
             report: core.getInput("reportDir", { required: false }),
             resource: core.getInput("resource", { required: false }),

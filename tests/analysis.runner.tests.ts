@@ -25,7 +25,7 @@ suite('vscode-common/runner', function() {
         sandbox.replace(fs, "existsSync", existsSyncFake);
         
         // Act
-        let error: string | undefined;
+        let error: string | Error | undefined | unknown;
         try {
             await runner.run(fakeCommandLine, fakeWorkingDir);
         }
@@ -45,7 +45,7 @@ suite('vscode-common/runner', function() {
         sandbox.replace(fs, 'existsSync', existsSyncFake);
 
         // Act
-        let error: string | undefined;
+        let error: string | Error | undefined | unknown;
         try {
             await runner.run('', fakeWorkingDir);
         }
@@ -70,14 +70,14 @@ suite('vscode-common/runner', function() {
         assert.strictEqual(error.code, 'ENOENT');
     });
 
-    async function outputChannelParameterizingTest(): Promise<string | undefined> {
+    async function outputChannelParameterizingTest(): Promise<string | Error | undefined | unknown> {
         const runner = new AnalysisRunner();
 
         const existsSyncFake = sandbox.fake(() => true);
         sandbox.replace(fs, 'existsSync', existsSyncFake);
 
         // Act
-        let error: string | undefined;
+        let error: string | Error | undefined | unknown;
         try {
             await runner.run(fakeCommandLine, fakeWorkingDir);
         }

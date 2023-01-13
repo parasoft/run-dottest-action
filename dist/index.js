@@ -3143,8 +3143,10 @@ async function run() {
     }
     catch (error) {
         core.error(Messages_1.messages.run_failed);
-        core.error(error);
-        core.setFailed(error.message);
+        if (error instanceof Error) {
+            core.error(error);
+            core.setFailed(error.message);
+        }
     }
 }
 exports.run = run;

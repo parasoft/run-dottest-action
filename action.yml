@@ -36,10 +36,10 @@ inputs:
     description: 'File system paths to files to exclude from analysis. Supports ANT-style wildcards. Use a semicolon-separated list to specify multiple paths.'
     required: false
   referenceReportFile:
-    description: 'Path to baseline report.xml file for test Impact Analysis.'
+    description: 'Path to the baseline report.xml file for Test Impact Analysis.'
     required: false
   referenceCoverageFile:
-    description: 'Path to baseline coverage.xml file for test Impact Analysis.'
+    description: 'Path to the baseline coverage.xml file for Test Impact Analysis.'
     required: false
   reference:
     description: 'Path to additional assemblies required to resolve dependencies. Specify a semicolon-separated list of paths to provide many references. Supports ANT-style wildcards.'

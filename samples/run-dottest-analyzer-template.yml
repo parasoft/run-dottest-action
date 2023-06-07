@@ -24,6 +24,15 @@ jobs:
   run-dottest-action:
     # Specifies the name of the job.
     name: Run code analysis with dotTEST
+
+    # Specifies required permissions for upload-sarif action
+    permissions:
+      # required for all workflows
+      security-events: write
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
+    
     # Specifies the type of runner that the job will run on.
     runs-on: self-hosted
     

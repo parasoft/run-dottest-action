@@ -9,7 +9,7 @@ This action enables you to run code analysis with Parasoft dotTEST and review an
 Parasoft dotTEST is a testing tool that automates software quality practices for C# and VB.NET applications. It uses a comprehensive set of analysis techniques, including pattern-based static analysis, dataflow analysis, metrics, code coverage, and unit testing to help you verify code quality and ensure compliance with industry standards, such as CWE or OWASP.
 
 - Request [a free trial](https://www.parasoft.com/products/parasoft-dottest/dottest-request-a-demo/) to receive access to Parasoft dotTEST's features and capabilities.
-- See the [user guide](https://docs.parasoft.com/display/DOTTEST20222) for information about Parasoft dotTEST's capabilities and usage.
+- See the [user guide](https://docs.parasoft.com/display/DOTTEST20231) for information about Parasoft dotTEST's capabilities and usage.
 
 Please visit the [official Parasoft website](http://www.parasoft.com) for more information about Parasoft dotTEST and other Parasoft products.
 
@@ -53,6 +53,14 @@ on:
 jobs:
   # Specifies the name of the job.
   Run code analysis with dotTEST:
+    # Specifies required permissions for upload-sarif action
+    permissions:
+      # required for all workflows
+      security-events: write
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
+    
     # Specifies the type of runner that the job will run on.
     runs-on: self-hosted
 
@@ -64,7 +72,7 @@ jobs:
       # Runs code analysis with dotTEST.
       - name: Run Parasoft dotTEST
         # Specifies the action to run.
-        uses: parasoft/run-dottest-action@2.0.0
+        uses: parasoft/run-dottest-action@2.0.1
         
         # You can reference a specific commit or version:
         # uses: parasoft/run-dottest-action@1bc4be095189f455793afdb10b47127e06ae25ff
@@ -88,7 +96,7 @@ To upload reports in other formats, modify your workflow by adding the `upload-a
 # Runs Parasoft dotTEST and generates the reports.
 - name: Run Parasoft dotTEST
   id: dottest
-  uses: parasoft/run-dottest-action@2.0.0
+  uses: parasoft/run-dottest-action@2.0.1
   # ...
 
 # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
@@ -112,7 +120,7 @@ To upload reports in other formats, modify your workflow by adding the `upload-a
 You can configure analysis with Parasoft dotTEST in one of the following ways:
 
 - By customizing the `Run Parasoft dotTEST` action directly in your GitHub workflow. See [Action Parameters](#action-parameters) for a complete list of available parameters.
-- By configuring options in Parasoft dotTEST tool. We recommend creating a `dottestcli.properties` file that includes all the configuration options and adding the file to dotTEST's working directory  - typically, the root directory of your repository. This allows dotTEST to automatically read all the configuration options from that file. See [Parasoft dotTEST User Guide](https://docs.parasoft.com/display/DOTTEST20222) for details.
+- By configuring options in Parasoft dotTEST tool. We recommend creating a `dottestcli.properties` file that includes all the configuration options and adding the file to dotTEST's working directory  - typically, the root directory of your repository. This allows dotTEST to automatically read all the configuration options from that file. See [Parasoft dotTEST User Guide](https://docs.parasoft.com/display/DOTTEST20231) for details.
 
 ### Examples
 
@@ -124,19 +132,19 @@ If `dottestcli` executable is not on `PATH`, you can configure the path to the i
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@2.0.0
+  uses: parasoft/run-dottest-action@2.0.1
   with:
     installDir: 'c:\Program Files\Parasoft\dotTEST\2022.2'
 ```
 
 #### Configuring a dotTEST Test Configuration
 
-Code analysis with dotTEST is performed by using a test configuration - a set of static analysis rules that enforce best coding practices. Parasoft dotTEST ships with a wide range of [built-in test configurations](https://docs.parasoft.com/display/DOTTEST20222/Built-in+Test+Configurations).
+Code analysis with dotTEST is performed by using a test configuration - a set of static analysis rules that enforce best coding practices. Parasoft dotTEST ships with a wide range of [built-in test configurations](https://docs.parasoft.com/display/DOTTEST20231/Built-in+Test+Configurations).
 To specify a test configuration directly in your workflow, add the `testConfig` parameter to the `Run Parasoft dotTEST` action and specify the URL of the test configuration you want to use:
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@2.0.0
+  uses: parasoft/run-dottest-action@2.0.1
   with:
     testConfig: 'builtin://Recommended Rules'
 ```
@@ -145,7 +153,7 @@ Alternatively, you can provide the workspace-relative path to the .properties fi
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@2.0.0
+  uses: parasoft/run-dottest-action@2.0.1
   with:
     testConfig: '.\.dottest\MyTestConfig.properties'
 ```
@@ -157,7 +165,7 @@ In the following example, the scope of analysis is narrowed down to the solution
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@2.0.0
+  uses: parasoft/run-dottest-action@2.0.1
   with:
     solution: '.\src\*.sln'
 ```
@@ -170,7 +178,7 @@ Regular configuration of dotTEST allows you to specify certain parameters more t
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@2.0.0
+  uses: parasoft/run-dottest-action@2.0.1
   with:
     solution: '.\src1\MySln1.sln;
       .\src2\MySln2.sln'
@@ -195,7 +203,7 @@ If you want to limit the scope of analysis to only see the violations from chang
 
     See the [Checkout action](https://github.com/marketplace/actions/checkout) description for details.
 
-2. Configure source control settings. See [Connecting to Source Control](https://docs.parasoft.com/display/DOTTEST20222/Connecting+to+Source+Control) for details.
+2. Configure source control settings. See [Connecting to Source Control](https://docs.parasoft.com/display/DOTTEST20231/Connecting+to+Source+Control) for details.
 3. Configure the following settings for dotTEST to limit the scope of analysis to files that are different between the current working branch and the reference branch:
 
     ```yaml
@@ -203,15 +211,15 @@ If you want to limit the scope of analysis to only see the violations from chang
     scope.scontrol.ref.branch=origin/main
     ```
 
-    See the [scope.scontrol.files.filter.mode](https://docs.parasoft.com/display/DOTTEST20222/Scope+and+Authorship+Settings#ScopeandAuthorshipSettings-scope.files.time.filter.modescope.scontrol.files.filter.mode) parameter description for details.
+    See the [scope.scontrol.files.filter.mode](https://docs.parasoft.com/display/DOTTEST20231/Scope+and+Authorship+Settings#ScopeandAuthorshipSettings-scope.files.time.filter.modescope.scontrol.files.filter.mode) parameter description for details.
 
 #### Executing a Limited Scope of Tests with Test Impact Analysis
 
-Test Impact Analysis (TIA) allows you to execute only the tests affected by code changes. It is supported starting with dotTEST 2022.2. See [Configuring the Test Impact Analysis](https://docs.parasoft.com/display/DOTTEST20222/Command+Line+Options#CommandLineOptions-TIA) for details. You need to customize the `Run Parasoft dotTEST` action to use this feature:
+Test Impact Analysis (TIA) allows you to execute only the tests affected by code changes. It is supported starting with dotTEST 2022.2. See [Configuring the Test Impact Analysis](https://docs.parasoft.com/display/DOTTEST20231/Command+Line+Options#CommandLineOptions-TIA) for details. You need to customize the `Run Parasoft dotTEST` action to use this feature:
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@2.0.0
+  uses: parasoft/run-dottest-action@2.0.1
   with:
     testConfig: 'Run VSTest Tests'
     referenceReportFile: PATH_TO_REPORT_FILE_ON_AGENT
@@ -226,7 +234,7 @@ Generating reports in the SARIF format is available in dotTEST since version 202
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@2.0.0
+  uses: parasoft/run-dottest-action@2.0.1
   with:
     sarifMode: 'legacy'
 ```

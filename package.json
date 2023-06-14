@@ -1,6 +1,6 @@
 {
   "name": "run-parasoft-dottest",
-  "version": "1.1.1",
+  "version": "2.0.1",
   "private": true,
   "description": "Run code analysis with Parasoft dotTEST and review results",
   "main": "lib/run-dottest-analyzer.js",

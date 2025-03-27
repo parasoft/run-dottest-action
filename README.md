@@ -67,7 +67,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
       # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # Runs code analysis with dotTEST.
       - name: Run Parasoft dotTEST
@@ -101,7 +101,7 @@ To upload reports in other formats, modify your workflow by adding the `upload-a
 
 # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
 - name: Upload results (SARIF)
-  uses: github/codeql-action/upload-sarif@v2
+  uses: github/codeql-action/upload-sarif@v3
   if: always()
   with:
     sarif_file: ${{ steps.dottest.outputs.report }}
@@ -196,7 +196,7 @@ If you want to limit the scope of analysis to only see the violations from chang
 
     ```yaml
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with: 
         fetch-depth: 0
     ```

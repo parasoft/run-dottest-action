@@ -31,7 +31,7 @@ We recommend that you run Parasoft dotTEST on a self-hosted rather than GitHub-h
 
 Add the `Run Parasoft dotTEST` action to your workflow to launch code analysis with Parasoft dotTEST.
 
-The following example shows a simple workflow made up of one job "Run code analysis with dotTEST". The example assumes that dotTEST is run on a self-hosted runner and the path to dottestcli.exe is available on PATH.
+The following example shows a simple workflow made up of one job "run-dottest-action". The example assumes that dotTEST is run on a self-hosted runner and the path to dottestcli.exe is available on PATH.
 
 ```yaml
 # This is a basic workflow to help you get started with the Run Parasoft dotTEST action.
@@ -51,8 +51,10 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel.
 jobs:
-  # Specifies the name of the job.
-  Run code analysis with dotTEST:
+  # This workflow is made up of one job "run-dottest-action".
+  run-dottest-action:
+    # Specifies the name of the job.
+    name: Run code analysis with dotTEST
     # Specifies required permissions for upload-sarif action
     permissions:
       # required for all workflows
@@ -268,7 +270,7 @@ If a pull request is blocked due to failed checks, the administrator can still m
 The following inputs are available for this action:
 | Input | Description |
 | --- | --- |
-| `testConfig` | Specifies the URL of the test configuration to be used for analysis. The default is `builtin://Recommended .NET Core Rules`.|
+| `testConfig` | Specifies the URL of the test configuration to be used for analysis. The default is `builtin://Recommended .NET Rules`.|
 | `exclude` | Specifies the file system paths to files to exclude from analysis. Supports ANT-style wildcards.|
 | `fail` | Fails the command with exit code 2 if any findings are reported.|
 | `installDir` | Specifies the path to the dotTEST installation directory, which contains dottestcli.exe.|

@@ -25,7 +25,7 @@ inputs:
   testConfig:
     description: 'URL of the test configuration to be used for analysis.'
     required: false
-    default: 'builtin://Recommended .NET Core Rules'
+    default: 'builtin://Recommended .NET Rules'
   resource:
     description: 'Solution-relative path to a project in a solution, a directory of files in a project, or a file. Use a semicolon-separated list to specify multiple paths.'
     required: false

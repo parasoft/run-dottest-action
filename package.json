@@ -28,7 +28,7 @@
     "@actions/core": "^v1.10.0",
     "@actions/exec": "^1.1.1",
     "@actions/github": "^5.1.1",
-    "@actions/http-client": "1.0.11",
+    "@actions/http-client": "2.0.1",
     "@actions/io": "^1.1.2"
   },
   "devDependencies": {

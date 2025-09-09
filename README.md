@@ -314,7 +314,7 @@ This tool requires Parasoft dotTEST altogether with python3.12 and the following
 
 ## Usage
 
-DottestAutoFix python script is in the integration/aider directory of the dottest instalation dir. We can see below the command altogether with the required and optional parameters. 
+DottestAutoFix python script is in the integration/aider directory of the dottest instalation dir. In order to use it you need to set OPENAI_API_KEY environmental variable. We can see below the command altogether with the required and optional parameters. 
 
 ```
 python DottestAutoFix.py [-h] [--report REPORT] [--fix-limit FIX_LIMIT] [--tool-home TOOL_HOME] [--solution SOLUTION]

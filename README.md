@@ -295,3 +295,35 @@ The following inputs are available for this action:
 | `solutionConfig` | Specifies the solution configuration (for example, `Debug`).|
 | `website` | Specifies the full path to the website directory to be analyzed when the solution is not provided.|
 | `workingDir` | Specifies the path to the working directory. The default is `${{ github.workspace }}`.|
+
+# Autofix plugin
+This action enables you to run autofix plugin assuming that you have report and dottestcli installed on your computer.
+
+Autofix plugin uses LLM tools to analyze and fix violations in your code. After applying proposed fix it first anylyzes it using dottestcli, and then creates a pull request to the repo which your project is contained in.
+
+## Prerequisites
+
+This tool requires Parasoft dotTEST altogether with python3.12 and the following packages:
+-pytest8.3.4
+-python-dotenv1.1.0
+-setuptools75.8.1
+-pydantic2.11.4
+-dotenv0.9.9
+-aider-chat0.82.3.
+
+
+## Usage
+
+DottestAutoFix python script is in the integration/aider directory of the dottest instalation dir. We can see below the command altogether with the required and optional parameters. 
+
+```
+python DottestAutoFix.py [-h] [--report REPORT] [--fix-limit FIX_LIMIT] [--tool-home TOOL_HOME] [--solution SOLUTION]
+
+```
+| Option                  | Description                                                                                    |
+| ----------------------- | ---------------------------------------------------------------------------------------------- |
+| `-h`, `--help`          | Show help message and exit.                                                                    |
+| `--report REPORT`       | **Path to the report file** that contains code violations to be fixed.<br>**Default:** `report.xml`        |
+| `--fix-limit FIX_LIMIT` | **Maximum number of violations to fix in one run.**<br>`0` means no limit.<br>**Default:** `0` |
+| `--tool-home TOOL_HOME` | Path to the **tool’s home directory** (e.g., where Dottest is installed).                        |
+| `--solution SOLUTION` | Path to a `.sln` (solution) file for .NET projects. |

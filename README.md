@@ -110,7 +110,7 @@ To upload reports in other formats, modify your workflow by adding the `upload-a
 
 # Uploads an archive that includes all report files (.xml, .html, .sarif).
 - name: Archive reports
-  uses: actions/upload-artifact@v3
+  uses: actions/upload-artifact@v4
   if: always()
   with:
     name: DottestReports

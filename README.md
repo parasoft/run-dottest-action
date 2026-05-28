@@ -69,12 +69,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
       # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       # Runs code analysis with dotTEST.
       - name: Run Parasoft dotTEST
         # Specifies the action to run.
-        uses: parasoft/run-dottest-action@2.0.2
+        uses: parasoft/run-dottest-action@2.0.3
         
         # You can reference a specific commit or version:
         # uses: parasoft/run-dottest-action@1bc4be095189f455793afdb10b47127e06ae25ff
@@ -98,7 +98,7 @@ To upload reports in other formats, modify your workflow by adding the `upload-a
 # Runs Parasoft dotTEST and generates the reports.
 - name: Run Parasoft dotTEST
   id: dottest
-  uses: parasoft/run-dottest-action@2.0.2
+  uses: parasoft/run-dottest-action@2.0.3
   # ...
 
 # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
@@ -134,7 +134,7 @@ If `dottestcli` executable is not on `PATH`, you can configure the path to the i
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@2.0.2
+  uses: parasoft/run-dottest-action@2.0.3
   with:
     installDir: 'c:\Program Files\Parasoft\dotTEST\2024.2'
 ```
@@ -146,7 +146,7 @@ To specify a test configuration directly in your workflow, add the `testConfig` 
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@2.0.2
+  uses: parasoft/run-dottest-action@2.0.3
   with:
     testConfig: 'builtin://Recommended Rules'
 ```
@@ -155,7 +155,7 @@ Alternatively, you can provide the workspace-relative path to the .properties fi
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@2.0.2
+  uses: parasoft/run-dottest-action@2.0.3
   with:
     testConfig: '.\.dottest\MyTestConfig.properties'
 ```
@@ -167,7 +167,7 @@ In the following example, the scope of analysis is narrowed down to the solution
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@2.0.2
+  uses: parasoft/run-dottest-action@2.0.3
   with:
     solution: '.\src\*.sln'
 ```
@@ -180,7 +180,7 @@ Regular configuration of dotTEST allows you to specify certain parameters more t
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@2.0.2
+  uses: parasoft/run-dottest-action@2.0.3
   with:
     solution: '.\src1\MySln1.sln;
       .\src2\MySln2.sln'
@@ -198,7 +198,7 @@ If you want to limit the scope of analysis to only see the violations from chang
 
     ```yaml
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with: 
         fetch-depth: 0
     ```
@@ -221,7 +221,7 @@ Test Impact Analysis (TIA) allows you to execute only the tests affected by code
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@2.0.2
+  uses: parasoft/run-dottest-action@2.0.3
   with:
     testConfig: 'Run VSTest Tests'
     referenceReportFile: PATH_TO_REPORT_FILE_ON_AGENT
@@ -236,7 +236,7 @@ Generating reports in the SARIF format is available in dotTEST since version 202
 
 ```yaml
 - name: Run Parasoft dotTEST
-  uses: parasoft/run-dottest-action@2.0.2
+  uses: parasoft/run-dottest-action@2.0.3
   with:
     sarifMode: 'legacy'
 ```

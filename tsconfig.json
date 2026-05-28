@@ -2,14 +2,13 @@
   "compilerOptions": {
     "target": "es2019",
     "module": "commonjs",
-    "outDir": "./lib",
-    "rootDir": "./src",
+    "moduleResolution": "bundler",
     "strict": true,
     "noImplicitAny": false,
     "sourceMap": true,
+    "types": ["mocha", "node"]
   },
   "exclude": [
-    "node_modules",
-    "tests"
+    "node_modules"
   ]
 }

@@ -9,7 +9,7 @@ This action enables you to run code analysis with Parasoft dotTEST and review an
 Parasoft dotTEST is a testing tool that automates software quality practices for C# and VB.NET applications. It uses a comprehensive set of analysis techniques, including pattern-based static analysis, dataflow analysis, metrics, code coverage, and unit testing to help you verify code quality and ensure compliance with industry standards, such as CWE or OWASP.
 
 - Request [a free trial](https://www.parasoft.com/products/parasoft-dottest/dottest-request-a-demo/) to receive access to Parasoft dotTEST's features and capabilities.
-- See the [user guide](https://docs.parasoft.com/display/DOTTEST20242) for information about Parasoft dotTEST's capabilities and usage.
+- See the [user guide](https://docs.parasoft.com/display/DOTTEST20261) for information about Parasoft dotTEST's capabilities and usage.
 
 Please visit the [official Parasoft website](http://www.parasoft.com) for more information about Parasoft dotTEST and other Parasoft products.
 
@@ -122,7 +122,7 @@ To upload reports in other formats, modify your workflow by adding the `upload-a
 You can configure analysis with Parasoft dotTEST in one of the following ways:
 
 - By customizing the `Run Parasoft dotTEST` action directly in your GitHub workflow. See [Action Parameters](#action-parameters) for a complete list of available parameters.
-- By configuring options in Parasoft dotTEST tool. We recommend creating a `dottestcli.properties` file that includes all the configuration options and adding the file to dotTEST's working directory  - typically, the root directory of your repository. This allows dotTEST to automatically read all the configuration options from that file. See [Parasoft dotTEST User Guide](https://docs.parasoft.com/display/DOTTEST20231) for details.
+- By configuring options in Parasoft dotTEST tool. We recommend creating a `dottestcli.properties` file that includes all the configuration options and adding the file to dotTEST's working directory  - typically, the root directory of your repository. This allows dotTEST to automatically read all the configuration options from that file. See [Parasoft dotTEST User Guide](https://docs.parasoft.com/display/DOTTEST20261) for details.
 
 ### Examples
 
@@ -141,7 +141,7 @@ If `dottestcli` executable is not on `PATH`, you can configure the path to the i
 
 #### Configuring a dotTEST Test Configuration
 
-Code analysis with dotTEST is performed by using a test configuration - a set of static analysis rules that enforce best coding practices. Parasoft dotTEST ships with a wide range of [built-in test configurations](https://docs.parasoft.com/display/DOTTEST20231/Built-in+Test+Configurations).
+Code analysis with dotTEST is performed by using a test configuration - a set of static analysis rules that enforce best coding practices. Parasoft dotTEST ships with a wide range of [built-in test configurations](https://docs.parasoft.com/display/DOTTEST20261/Built-in+Test+Configurations).
 To specify a test configuration directly in your workflow, add the `testConfig` parameter to the `Run Parasoft dotTEST` action and specify the URL of the test configuration you want to use:
 
 ```yaml
@@ -205,7 +205,7 @@ If you want to limit the scope of analysis to only see the violations from chang
 
     See the [Checkout action](https://github.com/marketplace/actions/checkout) description for details.
 
-2. Configure source control settings. See [Connecting to Source Control](https://docs.parasoft.com/display/DOTTEST20231/Connecting+to+Source+Control) for details.
+2. Configure source control settings. See [Connecting to Source Control](https://docs.parasoft.com/display/DOTTEST20261/Connecting+to+Source+Control) for details.
 3. Configure the following settings for dotTEST to limit the scope of analysis to files that are different between the current working branch and the reference branch:
 
     ```yaml
@@ -213,7 +213,7 @@ If you want to limit the scope of analysis to only see the violations from chang
     scope.scontrol.ref.branch=origin/main
     ```
 
-    See the [scope.scontrol.files.filter.mode](https://docs.parasoft.com/display/DOTTEST20231/Scope+and+Authorship+Settings#ScopeandAuthorshipSettings-scope.files.time.filter.modescope.scontrol.files.filter.mode) parameter description for details.
+    See the [scope.scontrol.files.filter.mode](https://docs.parasoft.com/display/DOTTEST20261/Scope+and+Authorship+Settings#ScopeandAuthorshipSettings-scope.files.time.filter.modescope.scontrol.files.filter.mode) parameter description for details.
 
 #### Executing a Limited Scope of Tests with Test Impact Analysis
 

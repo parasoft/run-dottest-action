@@ -1,3 +1,4 @@
+/// <reference types="mocha" />
 import * as assert from 'assert';
 import * as pt from 'path';
 

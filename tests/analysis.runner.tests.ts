@@ -1,9 +1,11 @@
+/// <reference types="mocha" />
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 
 import { AnalysisRunner } from '../src/AnalysisRunner';
 import { messages } from '../src/Messages';
-import * as fs from 'fs';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+import fs = require('fs');
 import * as cp from 'child_process';
 
 // tslint:disable:only-arrow-functions

@@ -41,13 +41,13 @@ jobs:
 
     # Checks out your repository, so that your job can access it.
     - name: Check out code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     # ---------------------------------------------------------------
     # Runs code analysis with dotTEST and generates a .sarif report.
     - name: Run Parasoft dotTEST
       id: dottest
-      uses: parasoft/run-dottest-action@2.0.2
+      uses: parasoft/run-dottest-action@2.0.3
       with:
         # Path to the working directory.
         #workingDir: # optional, default is ${{ github.workspace }}

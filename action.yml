@@ -94,5 +94,5 @@ outputs:
   reportDir: 
     description: 'Path to the directory that contains the generated report.'
 runs:
-  using: 'node16'
+  using: 'node24'
   main: 'dist/index.js'

@@ -110,7 +110,7 @@ To upload reports in other formats, modify your workflow by adding the `upload-a
 
 # Uploads an archive that includes all report files (.xml, .html, .sarif).
 - name: Archive reports
-  uses: actions/upload-artifact@v4
+  uses: actions/upload-artifact@v7
   if: always()
   with:
     name: DottestReports
@@ -141,7 +141,7 @@ If `dottestcli` executable is not on `PATH`, you can configure the path to the i
 
 #### Configuring a dotTEST Test Configuration
 
-Code analysis with dotTEST is performed by using a test configuration - a set of static analysis rules that enforce best coding practices. Parasoft dotTEST ships with a wide range of [built-in test configurations](https://docs.parasoft.com/display/DOTTEST20261/Built-in+Test+Configurations).
+Code analysis with dotTEST is performed by using a test configuration - a set of static analysis rules that enforce best coding practices. Parasoft dotTEST ships with a wide range of [built-in test configurations](https://docs.parasoft.com/display/DOTTEST20261/Builtin+Test+Configurations).
 To specify a test configuration directly in your workflow, add the `testConfig` parameter to the `Run Parasoft dotTEST` action and specify the URL of the test configuration you want to use:
 
 ```yaml

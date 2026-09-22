@@ -69,7 +69,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
       # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       # Runs code analysis with dotTEST.
       - name: Run Parasoft dotTEST
@@ -198,7 +198,7 @@ If you want to limit the scope of analysis to only see the violations from chang
 
     ```yaml
     - name: Checkout repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with: 
         fetch-depth: 0
     ```

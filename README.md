@@ -136,7 +136,7 @@ If `dottestcli` executable is not on `PATH`, you can configure the path to the i
 - name: Run Parasoft dotTEST
   uses: parasoft/run-dottest-action@2.0.3
   with:
-    installDir: 'c:\Program Files\Parasoft\dotTEST\2024.2'
+    installDir: 'c:\Program Files\Parasoft\dotTEST\2026.1'
 ```
 
 #### Configuring a dotTEST Test Configuration
@@ -217,7 +217,7 @@ If you want to limit the scope of analysis to only see the violations from chang
 
 #### Executing a Limited Scope of Tests with Test Impact Analysis
 
-Test Impact Analysis (TIA) allows you to execute only the tests affected by code changes. It is supported starting with dotTEST 2022.2. See [Configuring the Test Impact Analysis](https://docs.parasoft.com/display/DOTTEST20231/Command+Line+Options#CommandLineOptions-TIA) for details. You need to customize the `Run Parasoft dotTEST` action to use this feature:
+Test Impact Analysis (TIA) allows you to execute only the tests affected by code changes. It is supported starting with dotTEST 2022.2. See [Configuring the Test Impact Analysis](https://docs.parasoft.com/display/DOTTEST20261/Command+Line+Options#CommandLineOptions-TIA) for details. You need to customize the `Run Parasoft dotTEST` action to use this feature:
 
 ```yaml
 - name: Run Parasoft dotTEST
